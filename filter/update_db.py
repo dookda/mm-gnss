@@ -4,8 +4,9 @@ import schedule
 import time
 import os
 import subprocess
+import requests
 
-dbName = "test"
+dbName = "gnss"
 dbUser = "postgres"
 dbPass = "1234"
 dbHost = "localhost"
@@ -17,10 +18,33 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 
+def alertURL(txt):
+    # send alert
+    url = 'https://www.w3schools.com/python/demopage.php'
+    myobj = {'somekey': txt}
+    x = requests.post(url, data=myobj)
+    print(x.text)
+
+
+alertURL("txt")
+
+
+def checkData(dat):
+    a = dat.rstrip("\n")
+    print(a)
+    if int(a) == 1:
+        alertURL("moving at 10-20 cm")
+    elif int(a) == 2:
+        alertURL("moving >20 cm")
+    else:
+        print("nomal")
+
+
 def insertDb(dat):
-    currentDate = datetime.datetime.now().strftime("%Y-%m-%d")
-    sql = "INSERT INTO dataset(stat_code, timestamp)VALUES('{stacode}','{cr} {ts}')".format(
-        stacode=dat[0], cr=currentDate, ts=dat[1])
+    checkData(dat[7])
+
+    sql = "INSERT INTO gnsstb(station, dt, de, dn, dz, status)VALUES('{stacode}','{d} {h}:{m}',{de},{dn},{dz},{status})".format(
+        stacode=dat[0], d=dat[1], h=dat[2], m=dat[3], de=dat[4], dn=dat[5], dz=dat[6], status=dat[7])
     cursor.execute(sql)
     print(sql)
 
@@ -28,7 +52,7 @@ def insertDb(dat):
 def readFile():
     files = open("output.asc", "r+")
     for f in files:
-        i = f.split("   ")
+        i = f.split(",")
         print(i)
         insertDb(i)
     files.truncate(0)
@@ -36,9 +60,9 @@ def readFile():
 
 
 def runExe():
-    subprocess.Popen(["FILTER.exe"],
-                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).communicate()
-    print("readFile")
+    # subprocess.Popen(["FILTER.exe"],
+    #                  stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).communicate()
+    # print("readFile")
     readFile()
 
 
