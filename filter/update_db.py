@@ -50,7 +50,8 @@ def insertDb(dat):
 
 
 def readFile():
-    files = open("output.asc", "r+")
+    # files = open("output.asc", "r+")
+    files = open("/Users/sakdahomhuan/Dev/mm-gnss/filter/output.asc", "r+")
     for f in files:
         i = f.split(",")
         print(i)
