@@ -18,24 +18,24 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 
-def alertURL(txt):
-    # send alert
-    url = 'https://www.w3schools.com/python/demopage.php'
-    myobj = {'somekey': txt}
-    x = requests.post(url, data=myobj)
-    print(x.text)
+# def alertURL(txt):
+#     # send alert
+#     url = 'https://www.xxxx.com/gnss_alert'
+#     myobj = {'somekey': txt}
+#     x = requests.post(url, data=myobj)
+#     print(x.text)
 
 
-alertURL("txt")
+# alertURL("txt")
 
 
 def checkData(dat):
     a = dat.rstrip("\n")
     print(a)
     if int(a) == 1:
-        alertURL("moving at 10-20 cm")
+        print("moving at 10-20 cm")
     elif int(a) == 2:
-        alertURL("moving >20 cm")
+        print("moving >20 cm")
     else:
         print("nomal")
 
