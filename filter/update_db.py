@@ -72,6 +72,8 @@ def runSched():
     conn.commit()
     # conn.close()
 
+# testgit
+
 
 if __name__ == "__main__":
     schedule.every(5).seconds.do(runSched)
