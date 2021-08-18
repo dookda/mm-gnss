@@ -11,143 +11,138 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="" />
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style2.css" />
 </head>
 
 <body>
-  <div class="card">
-    <font color="#ffffff">โครงการวิจัย
-      "การพัฒนาระบบเฝ้าติดตามแผ่นดินถล่มบริเวณเหมืองเปิดถ่านหินลิกไนต์แม่เมาะโดยการรังวัดด้วยดาวเทียมกำหนดตำแหน่งบนพื้นโลกแบบจลน์ในทันที"
-    </font>
-    <div class="card-body" id="title">
-      <p><strong>
-          <font color="#0000FF">ระบบเฝ้าติดตามดินถล่มด้วยสถานี RTK GNSS</font>
-        </strong><br />
-        <font color="#0000FF">เหมืองแม่เมาะ การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย</font>
-      </p>
-    </div>
-  </div>
-
-  <div>
-    <div class="row">
-      <div class="col-sm-5 mt-1">
-        <div>
-          <div class="map-body" id="map"></div>
-        </div>
-      </div>
-      <div class="col-sm-7 mt-1">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 001</div>
-                <div class="pt-0-p-2" id="wrnsta001"></div>
-              </div>
-              <div class="chart-body chart" id="sta001"></div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 002</div>
-                <div class="pt-0-p-2" id="wrnsta002"></div>
-              </div>
-              <div class="chart-body chart" id="sta002"></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 003</div>
-                <div class="pt-0-p-2" id="wrnsta003"></div>
-              </div>
-              <div class="chart-body chart" id="sta003"></div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 004</div>
-                <div class="pt-0-p-2" id="wrnsta004"></div>
-              </div>
-              <div class="chart-body chart" id="sta004"></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 005</div>
-                <div class="pt-0-p-5" id="wrnsta005"></div>
-              </div>
-              <div class="chart-body chart" id="sta005"></div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 006</div>
-                <div class="pt-0-p-2" id="wrnsta006"></div>
-              </div>
-              <div class="chart-body chart" id="sta006"></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 007</div>
-                <div class="pt-0-p-2" id="wrnsta007"></div>
-              </div>
-              <div class="chart-body chart" id="sta007"></div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 008</div>
-                <div class="pt-0-p-2" id="wrnsta008"></div>
-              </div>
-              <div class="chart-body chart" id="sta008"></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 009</div>
-                <div class="pt-0-p-2" id="wrnsta009"></div>
-              </div>
-              <div class="chart-body chart" id="sta009"></div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="d-flex justify-content-between">
-                <div class="StaNam">Station 010</div>
-                <div class="pt-0-p-2" id="wrnsta010"></div>
-              </div>
-              <div class="chart-body chart" id="sta010"></div>
-            </div>
-          </div>
-        </div>
-
+  <div class="container-fluid mt-1 mb-2">
+    <div class="card">
+      <span style="color:#ffffff">โครงการวิจัย
+        "การพัฒนาระบบเฝ้าติดตามแผ่นดินถล่มบริเวณเหมืองเปิดถ่านหินลิกไนต์แม่เมาะโดยการรังวัดด้วยดาวเทียมกำหนดตำแหน่งบนพื้นโลกแบบจลน์ในทันที"
+      </span>
+      <div class="card-body" id="title">
+        <p><strong>
+            <span style="color:#0000FF">ระบบเฝ้าติดตามดินถล่มด้วยสถานี RTK GNSS</span>
+          </strong><br />
+          <span style="color:#0000FF">เหมืองแม่เมาะ การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย</span>
+        </p>
       </div>
     </div>
 
+    <div>
+      <div class="row">
+        <div class="col-sm-5 mt-1">
+          <div>
+            <div class="map-body" id="map"></div>
+          </div>
+        </div>
+        <div class="col-sm-7 mt-1">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 001</div>
+                  <div class="pt-0-p-2" id="wrnsta001"></div>
+                </div>
+                <div class="chart-body chart" id="sta001"></div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 002</div>
+                  <div class="pt-0-p-2" id="wrnsta002"></div>
+                </div>
+                <div class="chart-body chart" id="sta002"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 003</div>
+                  <div class="pt-0-p-2" id="wrnsta003"></div>
+                </div>
+                <div class="chart-body chart" id="sta003"></div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 004</div>
+                  <div class="pt-0-p-2" id="wrnsta004"></div>
+                </div>
+                <div class="chart-body chart" id="sta004"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 005</div>
+                  <div class="pt-0-p-5" id="wrnsta005"></div>
+                </div>
+                <div class="chart-body chart" id="sta005"></div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 006</div>
+                  <div class="pt-0-p-2" id="wrnsta006"></div>
+                </div>
+                <div class="chart-body chart" id="sta006"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 007</div>
+                  <div class="pt-0-p-2" id="wrnsta007"></div>
+                </div>
+                <div class="chart-body chart" id="sta007"></div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 008</div>
+                  <div class="pt-0-p-2" id="wrnsta008"></div>
+                </div>
+                <div class="chart-body chart" id="sta008"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 009</div>
+                  <div class="pt-0-p-2" id="wrnsta009"></div>
+                </div>
+                <div class="chart-body chart" id="sta009"></div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="d-flex justify-content-between">
+                  <div class="StaNam">Station 010</div>
+                  <div class="pt-0-p-2" id="wrnsta010"></div>
+                </div>
+                <div class="chart-body chart" id="sta010"></div>
+              </div>
+            </div>
+          </div>
 
-    <div></div>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-
-  </div>
-
-
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -165,6 +160,6 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script src="./app.js"></script>
+<script src="./app2.js"></script>
 
 </html>
