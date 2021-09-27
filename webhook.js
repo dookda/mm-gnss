@@ -1,13 +1,7 @@
 const express = require('express');
 const app = express.Router();
 const line = require("@line/bot-sdk");
-
-const { default: axios } = require('axios');
-
-const config = {
-    channelAccessToken: 'U540bp8oSLcEnhrnO7k/eCo4fbTBTDLpYZMVLWQoENMGelYtEfEGRbvSBmx5OGTNMxTnAiiE92pYVVLz9AfYSVh1PPhVdF0aNKybIpmR/tnvOiBao8zkymuc8gzq3QS3dgkuUXfOhWAVpFuqbM7KNgdB04t89/1O/w1cDnyilFU=',
-    channelSecret: '74baa3dcc4b6cfce7e6519c8e547ce40'
-};
+const config = require("./config.json")
 
 const client = new line.Client(config)
 
