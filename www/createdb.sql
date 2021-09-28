@@ -12,3 +12,12 @@ CREATE TABLE IF NOT EXISTS public.dataset
     com_status character varying ,
     CONSTRAINT dataset_pkey PRIMARY KEY (id)
 )
+
+CREATE TABLE user_tb (
+	gid serial not null,
+    userid text,
+	username text,
+	email text,
+	dt timestamp without time zone,
+    CONSTRAINT user_tb_pkey PRIMARY KEY (gid)
+)

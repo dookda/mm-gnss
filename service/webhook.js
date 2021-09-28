@@ -2,6 +2,10 @@ const express = require('express');
 const app = express.Router();
 const line = require("@line/bot-sdk");
 const config = require("./config.json")
+const con = require("./db");
+const db = con.db;
+
+
 
 const client = new line.Client(config)
 
@@ -96,8 +100,6 @@ function handleSticker(message, replyToken) {
     return replyText(replyToken, 'Got Sticker');
 }
 
-
-
 app.post("/pushmsg", (req, res) => {
     const msg = {
         type: 'text',
@@ -108,18 +110,49 @@ app.post("/pushmsg", (req, res) => {
 });
 
 app.post("/multicast", (req, res) => {
-    const msg1 = {
-        type: 'text',
-        text: 'Hello,'
-    };
 
-    const msg2 = {
-        type: 'text',
-        text: 'World!'
-    };
+    const sql = `SELECT userid FROM user_tb`;
+    let usrArr = []
+    db.query(sql).then(async (r) => {
 
-    const userId = 'U6c3e40fc26082a586c961f40fe239e3a'
-    client.multicast([userId], [msg1, msg2])
+        r.rows.forEach(i => {
+            usrArr.push(i.userid);
+        })
+
+        const msg1 = {
+            type: 'text',
+            text: 'ทดสอบ,'
+        };
+
+        const msg2 = {
+            "type": "template",
+            "altText": "This is a buttons template",
+            "template": {
+                "type": "buttons",
+                "thumbnailImageUrl": "https://example.com/bot/images/image.jpg",
+                "imageAspectRatio": "rectangle",
+                "imageSize": "cover",
+                "imageBackgroundColor": "#FFFFFF",
+                "title": "ชื่อ gnss",
+                "text": "สถานะล่าสุด",
+                "defaultAction": {
+                    "type": "uri",
+                    "label": "View detail",
+                    "uri": "http://example.com/page/123"
+                },
+                "actions": [
+                    {
+                        "type": "uri",
+                        "label": "ดูข้อมูลเพิ่มเติม",
+                        "uri": "http://example.com/page/123"
+                    }
+                ]
+            }
+        }
+
+        client.multicast(usrArr, [msg1, msg2])
+
+    });
 });
 
 

@@ -35,6 +35,17 @@ app.post("/api/insertdiff", (req, res) => {
             status: 'ok'
         });
     });
-})
+});
+
+app.post("/api/register", (req, res) => {
+    const { userid, username, email } = req.body;
+    const sql = `INSERT INTO user_tb(userid,username,email,dt)VALUES('${userid}','${username}','${email}',now())`;
+    db.query(sql).then(() => {
+        console.log(sql);
+        res.status(200).json({
+            status: "ลงทะเบียนสำเร็จ"
+        });
+    });
+});
 
 module.exports = app;

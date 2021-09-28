@@ -110,10 +110,10 @@ let changeColorMarker = (id, val) => {
     id == 'sta009' ? staLatlon = [18.339672, 99.674849] : null;
     id == 'sta010' ? staLatlon = [18.339672, 99.674849] : null;
 
-    if (val >= 2) {
+    if (val >= 3) {
         rmLyr(id)
         L.marker(staLatlon, { name: id, icon: iconred }).bindPopup('สถานี ' + id).addTo(lyrs);
-    } else if (val < 2) {
+    } else if (val < 3) {
         rmLyr(id)
         L.marker(staLatlon, { name: id, icon: icongreen }).bindPopup('สถานี ' + id).addTo(lyrs);
     }
@@ -133,7 +133,7 @@ let showChart = (sta, data) => {
                         axios.post('http://localhost:3000/api/lastposition', { stat_code: sta }).then((r) => {
                             // console.log(r);
                             let x = (new Date()).getTime();
-                            let y = r.data.data[0].status;
+                            let y = r.data.data[0].diff;
                             changeColorWarning(sta, y)
                             changeColorMarker(sta, y)
                             return series.addPoint([x, y], true, true);

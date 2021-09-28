@@ -34,8 +34,16 @@ def readFile():
         i = f.split(",")
         print(i)
         insertDb(i)
+        readStatus(i)
     files.truncate(0)
     files.close()
+
+
+def readStatus(dat):
+    if dat[7] == 2:
+        print("alert")
+        # send to LINE
+        requests.post('https://localhost/multicast', data={'key': 'value'})
 
 
 def runExe():

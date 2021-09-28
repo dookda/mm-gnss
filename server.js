@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-const webhook = require("./webhook");
+const webhook = require("./service/webhook");
 app.use(webhook);
 
 app.use('/', express.static('www'));
@@ -14,7 +14,7 @@ app.use(api);
 
 const port = 3000
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`http://localhost:${port}`)
 })
 
 
