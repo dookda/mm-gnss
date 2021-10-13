@@ -1,5 +1,6 @@
+
 var map = L.map('map', {
-    center: [18.335017, 99.719808],
+    center: [18.359549715002537, 99.69806926182481],
     zoom: 13,
     zoomControl: false
 });
@@ -66,6 +67,12 @@ let icongreen = L.icon({
     popupAnchor: [5, -30]
 });
 
+let iconyellow = L.icon({
+    iconUrl: './marker/location-pin-yellow.svg',
+    iconSize: [35, 35],
+    iconAnchor: [12, 37],
+    popupAnchor: [5, -30]
+});
 
 let iconred = L.icon({
     iconUrl: './marker/location-pin-red.svg',
@@ -73,20 +80,6 @@ let iconred = L.icon({
     iconAnchor: [12, 37],
     popupAnchor: [5, -30]
 });
-
-changeColormarker = () => {
-    axios.get('http://localhost:3000/api/basestation').then((r) => {
-
-        r.data.data.map(i => {
-            let mk = L.marker([i.y_coor, i.x_coor], { name: "marker" });
-            mk.bindPopup('สถานี ' + i.stat_name);
-            mk.addTo(lyrs);
-            console.log(i.y_coor, i.x_coor, i.stat_name)
-        })
-    })
-}
-
-// changeColormarker()
 
 let rmLyr = (mkname) => {
     map.eachLayer(lyr => {
@@ -96,40 +89,40 @@ let rmLyr = (mkname) => {
     })
 }
 
-let changeColorWarning = (id, val) => {
-    $("#wrn" + id).empty();
-    if (val >= 3) {
-        $("#wrn" + id).append('<img src="./img/red.svg" width="18px"></img>');
-    } else {
-        $("#wrn" + id).append('<img src="./img/green.svg" width="18px"></img>');
-    }
-}
-
 let changeColorMarker = (id, val) => {
+    console.log(val);
     let staLatlon;
-    id == 'sta001' ? staLatlon = [18.339672, 99.674849] : null;
-    id == 'sta002' ? staLatlon = [18.337106, 99.682434] : null;
-    id == 'sta003' ? staLatlon = [18.328093, 99.690406] : null;
-    id == 'sta004' ? staLatlon = [18.338522, 99.694236] : null;
-    id == 'sta005' ? staLatlon = [18.338522, 99.684236] : null;
-    id == 'sta006' ? staLatlon = [18.339672, 99.674849] : null;
-    id == 'sta007' ? staLatlon = [18.339672, 99.674849] : null;
-    id == 'sta008' ? staLatlon = [18.339672, 99.674849] : null;
-    id == 'sta009' ? staLatlon = [18.339672, 99.674849] : null;
-    id == 'sta010' ? staLatlon = [18.339672, 99.674849] : null;
+    id == '01' ? staLatlon = [18.339672, 99.674849] : null;
+    id == '02' ? staLatlon = [18.337106, 99.682434] : null;
+    id == '03' ? staLatlon = [18.328093, 99.690406] : null;
+    id == '04' ? staLatlon = [18.338522, 99.694236] : null;
+    id == '05' ? staLatlon = [18.348869, 99.699504] : null;
+    id == '06' ? staLatlon = [18.357983, 99.702851] : null;
+    id == '07' ? staLatlon = [18.367473, 99.713365] : null;
+    id == '08' ? staLatlon = [18.364072, 99.715371] : null;
+    id == '09' ? staLatlon = [18.383051, 99.721390] : null;
+    id == '10' ? staLatlon = [18.387062, 99.724952] : null;
 
-    if (val >= 2) {
+    if (val == 2) {
+        rmLyr(id)
+        L.marker(staLatlon, { name: id, icon: iconyellow }).bindPopup('สถานี ' + id).addTo(lyrs);
+        $("#wrnsta0" + id).attr("src", "./img/yellow.svg");
+    } else if (val == 3) {
         rmLyr(id)
         L.marker(staLatlon, { name: id, icon: iconred }).bindPopup('สถานี ' + id).addTo(lyrs);
-    } else if (val < 2) {
+        $("#wrnsta0" + id).attr("src", "./img/red.svg");
+    } else {
         rmLyr(id)
         L.marker(staLatlon, { name: id, icon: icongreen }).bindPopup('สถานี ' + id).addTo(lyrs);
+        $("#wrnsta0" + id).attr("src", "./img/green.svg");
     }
 
 }
 
+let chart;
+
 let showChart = (sta, data) => {
-    Highcharts.chart(sta, {
+    chart = Highcharts.chart("sta0" + sta, {
         chart: {
             type: 'spline',
             animation: Highcharts.svg,
@@ -142,7 +135,7 @@ let showChart = (sta, data) => {
                             // console.log(r);
                             let x = (new Date()).getTime();
                             let y = r.data.data[0].status;
-                            changeColorWarning(sta, y)
+                            // changeColorWarning(sta, y)
                             changeColorMarker(sta, y)
                             return series.addPoint([x, y], true, true);
                         })
@@ -246,27 +239,33 @@ let insertData = (stat_code, diff) => {
     }
 }
 
-const sta_01 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta001' })
-const sta_02 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta002' })
-const sta_03 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta003' })
-const sta_04 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta004' })
-const sta_05 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta005' })
-const sta_06 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta006' })
-const sta_07 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta007' })
-const sta_08 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta008' })
-const sta_09 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta009' })
-const sta_10 = axios.post('http://localhost:3000/api/lastposition', { stat_code: 'sta010' })
+const sta_01 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '01' })
+const sta_02 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '02' })
+const sta_03 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '03' })
+const sta_04 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '04' })
+const sta_05 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '05' })
+const sta_06 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '06' })
+const sta_07 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '07' })
+const sta_08 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '08' })
+const sta_09 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '09' })
+const sta_10 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '10' })
 
 
-showChart('sta001', sta_01);
-showChart('sta002', sta_02);
-showChart('sta003', sta_03);
-showChart('sta004', sta_04);
-showChart('sta005', sta_05);
-showChart('sta006', sta_06);
-showChart('sta007', sta_07);
-showChart('sta008', sta_08);
-showChart('sta009', sta_09);
-showChart('sta010', sta_10);
+showChart('01', sta_01);
+showChart('02', sta_02);
+showChart('03', sta_03);
+showChart('04', sta_04);
+showChart('05', sta_05);
+showChart('06', sta_06);
+showChart('07', sta_07);
+showChart('08', sta_08);
+showChart('09', sta_09);
+showChart('10', sta_10);
 
 
+let reset = (stat_code, value) => {
+
+    axios.post("http://localhost:3000/api/reset", { stat_code, value }).then(r => {
+        $('#sta0' + stat_code).highcharts().redraw();
+    })
+}

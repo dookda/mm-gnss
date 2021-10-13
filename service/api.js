@@ -26,10 +26,10 @@ app.post("/api/lastposition", (req, res) => {
     });
 })
 
-app.post("/api/insertdiff", (req, res) => {
-    const { stat_code, diff } = req.body;
+app.post("/api/reset", (req, res) => {
+    const { stat_code, value } = req.body;
     // console.log(stat_code);
-    const sql = `INSERT INTO dataset(stat_code, ts, diff)VALUES('${stat_code}', now(), ${diff})`;
+    const sql = `INSERT INTO dataset(stat_code, ts, status)VALUES('${stat_code}', now(), ${value})`;
     db.query(sql).then((r) => {
         res.status(200).json({
             status: 'ok'

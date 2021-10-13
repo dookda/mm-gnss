@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS public.dataset
 (
     id serial NOT NULL ,
-    station character varying ,
+    stat_code character varying ,
     dd character varying ,
     hh double precision,
     mm double precision,
