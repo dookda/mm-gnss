@@ -6,10 +6,10 @@ import os
 import subprocess
 import requests
 
-dbName = "gnss"
+dbName = "postgres"
 dbUser = "postgres"
-dbPass = "1234"
-dbHost = "localhost"
+dbPass = "Pgis@rti2dss@2020"
+dbHost = "119.59.125.134"
 dbPort = "5432"
 
 conn = pg2.connect(database=dbName, user=dbUser,
@@ -19,37 +19,58 @@ cursor = conn.cursor()
 
 
 def insertDb(dat):
-
-    sql = "INSERT INTO dataset(stat_code, ts, y_coor, x_coor, elev, status)VALUES('{stacode}','{d} {h}:{m}',{de},{dn},{dz},{status})".format(
-        stacode=dat[0], d=dat[1], h=dat[2], m=dat[3], de=dat[4], dn=dat[5], dz=dat[6], status=dat[7])
+    ts = f"{dat[1][4:8]}-{dat[1][2:4]}-{dat[1][0:2]}"
+    sql = '''INSERT INTO dataset(station, dd, hh, mm, ts, de, dn, dh, status)VALUES(
+        '{station}','{dd}','{hh}','{mm}','{ddmmyy} {hh}:{mm}',{de},{dn},{dz},{status})'''.format(
+        station=dat[0], dd=dat[1], hh=dat[2], mm=dat[3], ddmmyy=ts, de=dat[4], dn=dat[5], dz=dat[6], status=dat[7].rstrip("\n"))
     cursor.execute(sql)
     print(sql)
 
 
+def readStatus(dat):
+    station = dat[0]
+    status = dat[7].rstrip("\n")
+    print(f"{station} {status}")
+
+    if status == "1":
+        print("เปิด เหลือง")
+        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=1')
+    elif status == "2":
+        print("เปิด แดง")
+        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=1')
+    elif status == "3":
+        print("เปิด เหลือง")
+        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=1')
+        print("ปิด เหลือง")
+        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=0')
+        print("เปิด แดง")
+        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=1')
+        print("ปิด แดง")
+        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=0')
+
+    # send to LINE
+    # requests.post('https://localhost/multicast', data={'key': 'value'})
+
+
 def readFile():
     # files = open("output.asc", "r+")
-    files = open(
-        "new_output.txt", "r+")
+    files = open("/Users/sakdahomhuan/Dev/mm-gnss/filter/output.dat", "r+")
     for f in files:
-        i = f.split(",")
-        print(i)
-        insertDb(i)
-        readStatus(i)
-    files.truncate(0)
-    files.close()
+        f.strip()
+        arr = f.split(" ")
+        arr = list(filter(None, arr))
 
-
-def readStatus(dat):
-    if dat[7] == 2:
-        print("alert")
-        # send to LINE
-        requests.post('https://localhost/multicast', data={'key': 'value'})
+        # print(arr)
+        insertDb(arr)
+        readStatus(arr)
+    # files.truncate(0)
+    # files.close()
 
 
 def runExe():
-    subprocess.Popen(["FILTER2.exe"],
-                     stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).communicate()
-    print("readFile")
+    # subprocess.Popen(["FILTER2.exe"],
+    #                  stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True).communicate()
+    # print("readFile")
     readFile()
 
 
@@ -59,8 +80,6 @@ def runSched():
     print("runSched")
     # conn.commit()
     # conn.close()
-
-# testgit
 
 
 if __name__ == "__main__":
