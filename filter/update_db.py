@@ -8,7 +8,7 @@ import requests
 
 dbName = "postgres"
 dbUser = "postgres"
-dbPass = "Pgis@rti2dss@2020"
+dbPass = ""
 dbHost = "119.59.125.134"
 dbPort = "5432"
 
