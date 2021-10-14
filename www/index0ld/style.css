@@ -5,31 +5,16 @@
 }
 
 .card-body{
-/* height: 70px; */
-    background-color: yellow;
-    padding: 0px !important;
-}   
+height: 70px;
+background-color: yellow;
 
-.row-chart{
-    margin: 0px !important;
-    padding: 1px !important;
-}
-
-.row-col{
-    padding: 0px !important;
-}
-
-.chart{
-    height: 180px;
-    width: 100%;
-    border-radius: 5px;
 }
 
 .chart-body{
     border-radius: 5px;
     height: 100px;
-    /* flex: 1 1 auto; */
-    /* padding: 0rem 0rem; */
+    flex: 1 1 auto;
+    padding: 0rem 0rem;
 	background:#0015C0;
 }
 

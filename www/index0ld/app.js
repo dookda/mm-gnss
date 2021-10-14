@@ -1,3 +1,5 @@
+const { default: axios } = require("axios");
+
 var map = L.map('map', {
     center: [18.359549715002537, 99.69806926182481],
     zoom: 13,
@@ -115,114 +117,158 @@ let changeColorMarker = (id, val) => {
         L.marker(staLatlon, { name: id, icon: icongreen }).bindPopup('สถานี ' + id).addTo(lyrs);
         $("#wrnsta0" + id).attr("src", "./img/green.svg");
     }
+
 }
 
-var chart;
+let chart;
 
-let showChart = async (stat_code, param, cat, dat) => {
-    Highcharts.chart("sta0" + stat_code + param, {
-        title: {
-            text: '',
-            style: {
-                display: 'none'
+let showChart = (sta, data) => {
+    chart = Highcharts.chart("sta0" + sta, {
+        chart: {
+            type: 'spline',
+            animation: Highcharts.svg,
+            // marginRight: 100,
+            events: {
+                load: function () {
+                    var series = this.series[0];
+                    setInterval(async () => {
+                        axios.post('http://localhost:3000/api/lastposition', { stat_code: sta }).then((r) => {
+                            // console.log(r);
+                            let x = (new Date()).getTime();
+                            let y = r.data.data[0].status;
+                            // changeColorWarning(sta, y)
+                            changeColorMarker(sta, y)
+                            return series.addPoint([x, y], true, true);
+                        })
+                    }, 6000);
+                }
+            },
+            zoomType: 'x'
+        },
+
+        time: {
+            useUTC: false
+        },
+
+        title: false,
+        accessibility: {
+            announceNewData: {
+                enabled: true,
+                minAnnounceInterval: 15000,
+                announcementFormatter: function (allSeries, newSeries, newPoint) {
+                    if (newPoint) {
+                        return 'New point added. Value: ' + newPoint.y;
+                    }
+                    return false;
+                }
             }
         },
-        subtitle: {
-            text: '',
-            style: {
-                display: 'none'
-            }
+
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 120,
+            minorTickInterval: 'auto',
+            startOnTick: false,
+            endOnTick: false
         },
+
         yAxis: {
             title: {
-                text: "&#9651;" + param + " (m.)"
+                text: 'Difference (cm)'
+            },
+            min: -5,
+            max: 5,
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+            tickInterval: 1
+
+        },
+
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br/>',
+            //  pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f} cm'
+            pointFormat: 'เวลา {point.x:%H:%M:%S} น.<br/>{point.y:.2f} cm'
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        exporting: {
+            enabled: false
+        },
+
+        plotOptions: {
+            series: {
+                marker: {
+                    enabled: false
+                }
             }
         },
-        xAxis: {
-            categories: cat
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
+
         series: [{
-            name: param,
-            data: dat
-        }],
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
+            name: 'difference (cm)',
+            data: (function () {
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
+
+                for (i = -19; i <= 0; i += 1) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: Math.random()
+                    });
                 }
-            }]
-        }
-    });
+                // console.log(data);
+                return data;
+            }())
+        }]
+    })
 }
 
-let last = []
-let loadData = async (stat_code) => {
-    // console.log(stat_code);
-    try {
-        let resp = await axios.post("http://localhost:3000/api/last20position", { stat_code, limit: 20 })
-
-        let de = [];
-        let dn = [];
-        let dh = [];
-        let cat = [];
-        let status = 0;
-        let d;
-        let t;
-        resp.data.data.map(i => {
-            // console.log(i);
-            d = i.d;
-            t = i.t;
-            status = i.status;
-            $("#sta").text(`${i.stname}`);
-            $("#date").text(`${i.d}`);
-            $("#time").text(`${i.t}`);
-            cat.push(i.t);
-            de.push(Number(i.de));
-            dn.push(Number(i.dn));
-            dh.push(Number(i.dh));
-        });
-
-        if (last.toString() !== cat.toString()) {
-            await showChart(stat_code, "de", cat, de);
-            await showChart(stat_code, "dn", cat, dn);
-            await showChart(stat_code, "dh", cat, dh);
-
-            changeColorMarker(stat_code, status)
-        }
-        // console.log(last, cat);
-        last = cat;
-    } catch (err) {
-        console.error(err);
+let insertData = (stat_code, diff) => {
+    if (event.key === "Enter") {
+        // console.log(stat_code, diff.value);
+        axios.post("http://localhost:3000/api/insertdiff", {
+            stat_code: stat_code,
+            diff: diff.value
+        })
+        document.getElementById(stat_code + 'a').value = '';
     }
 }
 
+const sta_01 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '01' })
+const sta_02 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '02' })
+const sta_03 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '03' })
+const sta_04 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '04' })
+const sta_05 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '05' })
+const sta_06 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '06' })
+const sta_07 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '07' })
+const sta_08 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '08' })
+const sta_09 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '09' })
+const sta_10 = axios.post('http://localhost:3000/api/lastposition', { stat_code: '10' })
+
+
+showChart('01', sta_01);
+showChart('02', sta_02);
+showChart('03', sta_03);
+showChart('04', sta_04);
+showChart('05', sta_05);
+showChart('06', sta_06);
+showChart('07', sta_07);
+showChart('08', sta_08);
+showChart('09', sta_09);
+showChart('10', sta_10);
+
+
 let reset = (stat_code, value) => {
+
     axios.post("http://localhost:3000/api/reset", { stat_code, value }).then(r => {
-        loadData(stat_code);
+        $('#sta0' + stat_code).highcharts().redraw();
     })
     axios.get("http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=0").then(i => console.log("turn off yellow"))
     axios.get("http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=0").then(i => console.log("turn off red"))
 }
-
-loadData("01");
-loadData("02");
-loadData("03");
-loadData("04");
-loadData("05");
-loadData("06");
-loadData("07");
-loadData("08");
-loadData("09");
-loadData("10");
