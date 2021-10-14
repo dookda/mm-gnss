@@ -265,10 +265,10 @@ showChart('10', sta_10);
 
 
 let reset = (stat_code, value) => {
-
     axios.post("http://localhost:3000/api/reset", { stat_code, value }).then(r => {
         $('#sta0' + stat_code).highcharts().redraw();
     })
     axios.get("http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=0").then(i => console.log("turn off yellow"))
     axios.get("http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=0").then(i => console.log("turn off red"))
 }
+

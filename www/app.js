@@ -226,3 +226,16 @@ loadData("07");
 loadData("08");
 loadData("09");
 loadData("10");
+
+setInterval(() => {
+    loadData("01");
+    loadData("02");
+    loadData("03");
+    loadData("04");
+    loadData("05");
+    loadData("06");
+    loadData("07");
+    loadData("08");
+    loadData("09");
+    loadData("10");
+}, 5000)
