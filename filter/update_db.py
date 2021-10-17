@@ -6,12 +6,6 @@ import os
 import subprocess
 import requests
 
-dbName = "postgres"
-dbUser = "postgres"
-dbPass = ""
-dbHost = "119.59.125.134"
-dbPort = "5432"
-
 conn = pg2.connect(database=dbName, user=dbUser,
                    password=dbPass, host=dbHost, port=dbPort)
 conn.autocommit = True
