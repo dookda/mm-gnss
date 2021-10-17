@@ -5,9 +5,10 @@ import time
 import os
 import subprocess
 import requests
+from auth import conn
 
-conn = pg2.connect(database=dbName, user=dbUser,
-                   password=dbPass, host=dbHost, port=dbPort)
+conn = pg2.connect(database=conn["dbName"], user=conn["dbUser"],
+                   password=conn["dbPass"], host=conn["dbHost"], port=conn["dbPort"])
 conn.autocommit = True
 cursor = conn.cursor()
 
@@ -24,26 +25,38 @@ def insertDb(dat):
 def readStatus(dat):
     station = dat[0]
     status = dat[7].rstrip("\n")
+    status_text = ""
     print(f"{station} {status}")
 
     if status == "1":
         print("เปิด เหลือง")
-        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=1')
+        status_text = "Movement is low (10-20 cm)"
+        requests.get(
+            f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=3&onoff=1')
     elif status == "2":
         print("เปิด แดง")
-        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=1')
+        status_text = "Movement is medium (20-30cm)"
+        requests.get(
+            f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=4&onoff=1')
     elif status == "3":
         print("เปิด เหลือง")
-        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=1')
+        status_text = "Movement is high (more than 30cm)"
+        requests.get(
+            f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=3&onoff=1')
         print("ปิด เหลือง")
-        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=0')
+        requests.get(
+            f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=3&onoff=0')
         print("เปิด แดง")
-        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=1')
+        requests.get(
+            f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=4&onoff=1')
         print("ปิด แดง")
-        # requests.get('http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=0')
+        requests.get(
+            f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=4&onoff=0')
+    elif status == "4":
+        status_text = "System failures"
 
     # send to LINE
-    # requests.post('https://localhost/multicast', data={'key': 'value'})
+    requests.post('https://localhost/multicast', data={'key': status_text})
 
 
 def readFile():
