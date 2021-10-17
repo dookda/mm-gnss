@@ -59,22 +59,36 @@ var overlayMap = {
 L.control.layers(baseMap, overlayMap).addTo(map)
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-let icongreen = L.icon({
+let iconGreen = L.icon({
     iconUrl: './marker/location-pin-green.svg',
     iconSize: [35, 35],
     iconAnchor: [12, 37],
     popupAnchor: [5, -30]
 });
 
-let iconyellow = L.icon({
+let iconYellow = L.icon({
     iconUrl: './marker/location-pin-yellow.svg',
     iconSize: [35, 35],
     iconAnchor: [12, 37],
     popupAnchor: [5, -30]
 });
 
-let iconred = L.icon({
+let iconRed = L.icon({
     iconUrl: './marker/location-pin-red.svg',
+    iconSize: [35, 35],
+    iconAnchor: [12, 37],
+    popupAnchor: [5, -30]
+});
+
+let iconAlert = L.icon({
+    iconUrl: './marker/location-pin-alert.gif',
+    iconSize: [35, 35],
+    iconAnchor: [12, 37],
+    popupAnchor: [5, -30]
+});
+
+let iconGrey = L.icon({
+    iconUrl: './marker/location-pin-grey.svg',
     iconSize: [35, 35],
     iconAnchor: [12, 37],
     popupAnchor: [5, -30]
@@ -102,17 +116,25 @@ let changeColorMarker = (id, val) => {
     id == '09' ? staLatlon = [18.383051, 99.721390] : null;
     id == '10' ? staLatlon = [18.387062, 99.724952] : null;
 
-    if (val == 2) {
+    if (val == 1) {
         rmLyr(id)
-        L.marker(staLatlon, { name: id, icon: iconyellow }).bindPopup('สถานี ' + id).addTo(lyrs);
+        L.marker(staLatlon, { name: id, icon: iconYellow }).bindPopup('สถานี ' + id).addTo(lyrs);
         $("#wrnsta0" + id).attr("src", "./img/yellow.svg");
+    } else if (val == 2) {
+        rmLyr(id)
+        L.marker(staLatlon, { name: id, icon: iconRed }).bindPopup('สถานี ' + id).addTo(lyrs);
+        $("#wrnsta0" + id).attr("src", "./img/red.svg");
     } else if (val == 3) {
         rmLyr(id)
-        L.marker(staLatlon, { name: id, icon: iconred }).bindPopup('สถานี ' + id).addTo(lyrs);
-        $("#wrnsta0" + id).attr("src", "./img/red.svg");
+        L.marker(staLatlon, { name: id, icon: iconAlert }).bindPopup('สถานี ' + id).addTo(lyrs);
+        $("#wrnsta0" + id).attr("src", "./img/yr.gif");
+    } else if (val == 4) {
+        rmLyr(id)
+        L.marker(staLatlon, { name: id, icon: iconGrey }).bindPopup('สถานี ' + id).addTo(lyrs);
+        $("#wrnsta0" + id).attr("src", "./img/grey.svg");
     } else {
         rmLyr(id)
-        L.marker(staLatlon, { name: id, icon: icongreen }).bindPopup('สถานี ' + id).addTo(lyrs);
+        L.marker(staLatlon, { name: id, icon: iconGreen }).bindPopup('สถานี ' + id).addTo(lyrs);
         $("#wrnsta0" + id).attr("src", "./img/green.svg");
     }
 }
