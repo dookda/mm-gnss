@@ -79,7 +79,7 @@ def readFile():
         arr = list(filter(None, arr))
 
         insertDb(arr)
-        readStatus(arr)
+        # readStatus(arr)
     # clear content
     # files.truncate(0)
     # files.close()
