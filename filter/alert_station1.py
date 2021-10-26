@@ -57,22 +57,22 @@ def readStatus(station, status):
     # requests.post('https://localhost/multicast', data={'key': status_text})
 
 
-def selectData():
+def selectData(station):
     # ts = f"{dat[1][4:8]}-{dat[1][2:4]}-{dat[1][0:2]}"
-    sql = f'''SELECT stat_code, status FROM dataset d
-                WHERE ts = (SELECT MAX(ts) FROM dataset e WHERE e.stat_code = '03')  
-                AND d.stat_code = '03' '''
+    sql = f"""SELECT stat_code, status FROM dataset d
+                WHERE ts = (SELECT MAX(ts) FROM dataset e WHERE e.stat_code = '{station}')  
+                AND d.stat_code = '{station}' """
     cursor.execute(sql)
     fetrecords = cursor.fetchall()
     # print(fetrecords[0][0])
-    readStatus('04', fetrecords[0][1])
+    readStatus(station, fetrecords[0][1])
     # print(sql)
     # for row in fetrecords:
     #     print(row)
 
 
 def runSched():
-    selectData()
+    selectData('03')
 
     print("runSched")
     # conn.commit()
