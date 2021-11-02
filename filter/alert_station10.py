@@ -6,6 +6,7 @@ import os
 import subprocess
 import requests
 from auth import conn
+import tkinter as tk
 
 
 conn = pg2.connect(database=conn["dbName"], user=conn["dbUser"],
@@ -48,8 +49,8 @@ def selectData(station):
                 AND d.stat_code = '{station}' """
     cursor.execute(sql)
     fetrecords = cursor.fetchall()
-    # print(fetrecords[0][0])
-    readStatus(station, fetrecords[0][1])
+    print(fetrecords[0][0])
+    # readStatus(station, fetrecords[0][1])
 
 
 def runSched(station):

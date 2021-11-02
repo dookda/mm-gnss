@@ -23,48 +23,37 @@ def insertDb(dat):
     print(sql)
 
 
-def resData(r, *args, **kwargs):
-    dat = json.loads(r.text)
-    print(dat["status"])
+# def resData(r, *args, **kwargs):
+#     dat = json.loads(r.text)
+#     print(dat["status"])
 
 
-def readStatus(dat):
-    station = dat[0]
-    status = dat[7].rstrip("\n")
-    status_text = ""
-    print(f"{station} {status}")
+# def readStatus(dat):
+#     station = dat[0]
+#     status = dat[7].rstrip("\n")
+#     status_text = ""
+#     print(f"{station} {status}")
 
-    if status == "1":
-        print("เปิด เหลือง")
-        status_text = "Movement is low (10-20 cm)"
-        requests.get(
-            f"https://rti2dss.com:3510/api/testapi/{station}/{status_text}", hooks={'response': resData})
-        # f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=3&onoff=1')
-    elif status == "2":
-        print("เปิด แดง")
-        status_text = "Movement is medium (20-30cm)"
-        requests.get(
-            f"https://rti2dss.com:3510/api/testapi/{station}/{status_text}", hooks={'response': resData})
-    elif status == "3":
-        print("เปิด เหลือง")
-        status_text = "Movement is high (more than 30cm)"
-        requests.get(
-            f"https://rti2dss.com:3510/api/testapi/{station}/{status_text}", hooks={'response': resData})
-        # requests.get(
-        #     f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=3&onoff=1')
-        # print("ปิด เหลือง")
-        # requests.get(
-        #     f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=3&onoff=0')
-        # print("เปิด แดง")
-        # requests.get(
-        #     f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=4&onoff=1')
-        # print("ปิด แดง")
-        # requests.get(
-        #     f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=4&onoff=0')
-    elif status == "4":
-        status_text = "System failures"
-        requests.get(
-            f"https://rti2dss.com:3510/api/testapi/{station}/{status_text}", hooks={'response': resData})
+#     if status == "1":
+#         print("เปิด เหลือง")
+#         status_text = "Movement is low (10-20 cm)"
+#         requests.get(
+#             f"https://rti2dss.com:3510/api/testapi/{station}/{status_text}", hooks={'response': resData})
+#         # f'http://25.81.83.49/{station}/rpidata/setRelay/?cha=3&onoff=1')
+#     elif status == "2":
+#         print("เปิด แดง")
+#         status_text = "Movement is medium (20-30cm)"
+#         requests.get(
+#             f"https://rti2dss.com:3510/api/testapi/{station}/{status_text}", hooks={'response': resData})
+#     elif status == "3":
+#         print("เปิด เหลือง")
+#         status_text = "Movement is high (more than 30cm)"
+#         requests.get(
+#             f"https://rti2dss.com:3510/api/testapi/{station}/{status_text}", hooks={'response': resData})
+#     elif status == "4":
+#         status_text = "System failures"
+#         requests.get(
+#             f"https://rti2dss.com:3510/api/testapi/{station}/{status_text}", hooks={'response': resData})
 
     # send to LINE
     # requests.post('https://localhost/multicast', data={'key': status_text})
