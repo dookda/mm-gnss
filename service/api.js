@@ -1,3 +1,4 @@
+const { default: axios } = require('axios');
 const express = require('express');
 const app = express.Router();
 const con = require("./db");
@@ -61,5 +62,37 @@ app.post("/api/register", (req, res) => {
         });
     });
 });
+
+
+let selectLastdata = (station) => {
+    const sql = `SELECT stat_code, status FROM dataset d
+                WHERE ts = (SELECT MAX(ts) FROM dataset e 
+                            WHERE e.stat_code = '${station}')  
+                AND d.stat_code = '${station}'`;
+    db.query(sql).then((r) => {
+        // console.log(r.rows.length);
+        if (r.rows.length > 0) {
+            let station = r.rows[0].stat_code;
+            let status_text = r.rows[0].status;
+
+            axios.get(`https://rti2dss.com:3510/api/testapi/${station}/${status_text}`).then(x => {
+                console.log(x.data);
+            })
+        }
+
+    });
+}
+
+setInterval(() => {
+    selectLastdata("01");
+    selectLastdata("02")
+    selectLastdata("03")
+    selectLastdata("04")
+    selectLastdata("05")
+    selectLastdata("06")
+    selectLastdata("07")
+}, 5000)
+
+
 
 module.exports = app;
