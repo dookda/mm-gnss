@@ -1,3 +1,5 @@
+
+
 var map = L.map('map', {
     center: [18.359549715002537, 99.69806926182481],
     zoom: 13,
@@ -103,7 +105,7 @@ let rmLyr = (mkname) => {
 }
 
 let changeColorMarker = (id, val) => {
-    console.log(val);
+    // console.log(val);
     let staLatlon;
     id == '01' ? staLatlon = [18.339672, 99.674849] : null;
     id == '02' ? staLatlon = [18.337106, 99.682434] : null;
@@ -193,7 +195,7 @@ let last = []
 let loadData = async (stat_code) => {
     // console.log(stat_code);
     try {
-        let resp = await axios.post("http://localhost:3000/api/last20position", { stat_code, limit: 20 })
+        let resp = await axios.post("http://localhost:3000/api/last20position", { stat_code })
 
         let de = [];
         let dn = [];
@@ -221,13 +223,21 @@ let loadData = async (stat_code) => {
             await showChart(stat_code, "dn", cat, dn);
             await showChart(stat_code, "dh", cat, dh);
 
-            changeColorMarker(stat_code, status)
+
         }
         // console.log(last, cat);
         last = cat;
+
+        await axios.post("http://localhost:3000/api/lastposition", { stat_code }).then(r => {
+            // console.log(r);
+            changeColorMarker(stat_code, r.data.data[0].status)
+        })
+
     } catch (err) {
         console.error(err);
     }
+
+
 }
 
 let reset = (stat_code, value) => {

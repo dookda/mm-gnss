@@ -16,10 +16,8 @@ app.get("/api/basestation", (req, res) => {
 app.post("/api/lastposition", (req, res) => {
     const { stat_code } = req.body;
     // console.log(stat_code);
-    const sql = `SELECT * FROM dataset
-            WHERE stat_code = '${stat_code}' 
-            AND ts = (
-                SELECT MAX(ts) FROM dataset WHERE stat_code = '${stat_code}')`;
+    const sql = `SELECT * FROM dataset WHERE stat_code = '${stat_code}' 
+            AND ts = (SELECT MAX(ts) FROM dataset WHERE stat_code = '${stat_code}')`;
     db.query(sql).then((r) => {
         res.status(200).json({
             data: r.rows
@@ -79,7 +77,6 @@ let selectLastdata = (station) => {
                 console.log(x.data);
             })
         }
-
     });
 }
 
