@@ -270,6 +270,7 @@ setInterval(() => {
 let startPy = (station) => {
     axios.post('/api/startpython', { station }).then(r => {
         $("#status_sta" + station).html("starting...");
+        $("#btn_sta" + station).prop("disabled", true);
         console.log(r)
     });
 }
@@ -277,6 +278,7 @@ let startPy = (station) => {
 let stopPy = (station) => {
     axios.post('/api/stoppython', { station }).then(r => {
         $("#status_sta" + station).html("stoped");
+        $("#btn_sta" + station).prop("disabled", false);
         console.log(r)
     });
 }
