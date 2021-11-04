@@ -1,5 +1,4 @@
 
-
 var map = L.map('map', {
     center: [18.359549715002537, 99.69806926182481],
     zoom: 13,
@@ -222,8 +221,6 @@ let loadData = async (stat_code) => {
             await showChart(stat_code, "de", cat, de);
             await showChart(stat_code, "dn", cat, dn);
             await showChart(stat_code, "dh", cat, dh);
-
-
         }
         // console.log(last, cat);
         last = cat;
@@ -236,8 +233,6 @@ let loadData = async (stat_code) => {
     } catch (err) {
         console.error(err);
     }
-
-
 }
 
 let reset = (stat_code, value) => {
@@ -271,3 +266,11 @@ setInterval(() => {
     loadData("09");
     loadData("10");
 }, 5000)
+
+let startPy = (station) => {
+    axios.post('/api/startpython', { station }).then(r => console.log(r))
+}
+
+let stopPy = (station) => {
+    axios.post('/api/stoppython', { station }).then(r => console.log(r))
+}

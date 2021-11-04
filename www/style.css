@@ -4,6 +4,10 @@
     background-color: rgb(23, 26, 216);
 }
 
+.card-bg-white{
+    height: auto;
+}
+
 .card-body{
 /* height: 70px; */
     background-color: yellow;
@@ -39,7 +43,7 @@
 }
 
 #map{
-    height: 640px;
+    height: 540px;
     border-radius: 15px;
 }
 

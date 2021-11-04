@@ -1,8 +1,13 @@
 const { default: axios } = require('axios');
 const express = require('express');
+
 const app = express.Router();
 const con = require("./db");
 const db = con.db;
+
+const path = require('path')
+const { spawn } = require('child_process')
+const { PythonShell } = require("python-shell");
 
 app.get("/api/basestation", (req, res) => {
     const sql = `SELECT * FROM base_sta`;
@@ -80,15 +85,147 @@ let selectLastdata = (station) => {
     });
 }
 
-setInterval(() => {
-    selectLastdata("01");
-    selectLastdata("02")
-    selectLastdata("03")
-    selectLastdata("04")
-    selectLastdata("05")
-    selectLastdata("06")
-    selectLastdata("07")
-}, 5000)
+// setInterval(() => {
+//     selectLastdata("01");
+//     selectLastdata("02")
+//     selectLastdata("03")
+//     selectLastdata("04")
+//     selectLastdata("05")
+//     selectLastdata("06")
+//     selectLastdata("07")
+// }, 5000)
+
+
+function runScript(station) {
+    return spawn('python3', [
+        "-u",
+        path.join(__dirname, 'alert_station.py'),
+        station
+    ]);
+}
+// const subprocess = runScript()
+// subprocess.stdout.on('data', (data) => {
+//     console.log(`data:${data}`);
+// });
+// subprocess.stderr.on('data', (data) => {
+//     console.log(`error:${data}`);
+// });
+// subprocess.stderr.on('close', () => {
+//     console.log("Closed");
+// });
+
+// const subprocess = spawn('python3', ['./../filter/alert_station1.py']);
+let subprocess01 = runScript("01")
+let subprocess02 = runScript("02")
+let subprocess03 = runScript("03")
+let subprocess04 = runScript("04")
+let subprocess05 = runScript("05")
+let subprocess06 = runScript("06")
+let subprocess07 = runScript("07")
+let subprocess08 = runScript("08")
+let subprocess09 = runScript("09")
+let subprocess10 = runScript("10")
+
+let startsubprocess = (subprocess) => {
+    subprocess.stdout.on('data', (data) => {
+        console.log(`data:${data}`);
+        return `data:${data}`;
+    });
+}
+
+startsubprocess(subprocess01)
+startsubprocess(subprocess02)
+startsubprocess(subprocess03)
+startsubprocess(subprocess04)
+
+app.post('/api/startpython', (req, res) => {
+    const { station } = req.body;
+    let resp;
+
+    if (station == "01") {
+        subprocess01 = null;
+        subprocess01 = runScript("01");
+        resp = startsubprocess(subprocess01);
+    }
+    if (station == "02") {
+        subprocess02 = null;
+        subprocess02 = runScript("02");
+        resp = startsubprocess(subprocess02);
+    }
+    if (station == "03") {
+        subprocess03 = null;
+        subprocess03 = runScript("03")
+        resp = startsubprocess(subprocess03);
+    }
+    if (station == "04") {
+        subprocess04 = runScript("04")
+        resp = startsubprocess(subprocess04);
+    }
+    if (station == "05") {
+        subprocess05 = runScript("05")
+        resp = startsubprocess(subprocess05);
+    }
+    if (station == "06") {
+        subprocess06 = runScript("06")
+        resp = startsubprocess(subprocess06);
+    }
+    if (station == "07") {
+        subprocess07 = runScript("07")
+        resp = startsubprocess(subprocess07);
+    }
+    if (station == "08") {
+        subprocess08 = runScript("08")
+        resp = startsubprocess(subprocess08);
+    }
+    if (station == "09") {
+        subprocess09 = runScript("09")
+        resp = startsubprocess(subprocess09);
+    }
+    if (station == "10") {
+        subprocess10 = runScript("10")
+        resp = startsubprocess(subprocess10);
+    }
+
+    res.status(200).json({
+        status: resp
+    })
+
+    // subprocess = runScript()
+    // subprocess.stdout.on('data', (data) => {
+    //     // console.log(`data:${data}`);
+    //     res.status(200).json({
+    //         status: `Start:${data}`
+    //     })
+    // });
+
+})
+
+app.post('/api/stoppython', (req, res) => {
+    const { station } = req.body;
+    let subprocess;
+    station == "01" ? subprocess = subprocess01 : null;
+    station == "02" ? subprocess = subprocess02 : null;
+    station == "03" ? subprocess = subprocess03 : null;
+    station == "04" ? subprocess = subprocess04 : null;
+    station == "05" ? subprocess = subprocess05 : null;
+    station == "06" ? subprocess = subprocess06 : null;
+    station == "07" ? subprocess = subprocess07 : null;
+    station == "08" ? subprocess = subprocess08 : null;
+    station == "09" ? subprocess = subprocess09 : null;
+    station == "10" ? subprocess = subprocess10 : null;
+
+    subprocess.kill('SIGTERM');
+
+    subprocess.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    });
+    subprocess.stderr.on('close', () => {
+        console.log("Closed");
+    });
+    res.status(200).json({
+        status: `${station} Stop`
+    })
+})
 
 
 

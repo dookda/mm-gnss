@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="./style.css" />
 </head>
 
@@ -29,17 +29,121 @@
         </p>
       </div>
     </div>
-
     <div>
       <div class="row">
-        <div class="col-sm-5 mt-1">
-          <div>
-            <div class="map-body" id="map"></div>
+        <div class="col-sm-4 mt-2">
+          <div class="map-body" id="map"></div>
+          <div class="row mt-3">
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 1</label><br>
+                <button class="btn btn-success" onclick="startPy('01')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('01')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 2</label><br>
+                <button class="btn btn-success" onclick="startPy('02')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('02')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
           </div>
+
+          <div class="row mt-3">
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 3</label><br>
+                <button class="btn btn-success" onclick="startPy('03')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('03')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 4</label><br>
+                <button class="btn btn-success" onclick="startPy('04')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('04')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 5</label><br>
+                <button class="btn btn-success" onclick="startPy('05')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('05')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 6</label><br>
+                <button class="btn btn-success" onclick="startPy('06')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('06')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mt-3">
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 7</label><br>
+                <button class="btn btn-success" onclick="startPy('07')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('07')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 8</label><br>
+                <button class="btn btn-success" onclick="startPy('08')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('08')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mt-3">
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 9</label><br>
+                <button class="btn btn-success" onclick="startPy('09')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('09')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="shadow-none p-3 mb-1 bg-light rounded">
+                <label for="">station 10</label><br>
+                <button class="btn btn-success" onclick="startPy('10')"><i
+                    class="bi bi-play-circle"></i>&nbsp;start</button>
+                <button class="btn btn-danger" onclick="stopPy('10')"><i
+                    class="bi bi-stop-circle"></i>&nbsp;stop</button>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="col-sm-7 mt-1">
-          <div class="row">
-            <div class="col-sm-6 m1">
+        <div class="col-sm-8">
+          <div class="row mt-1">
+            <div class="col-sm-6">
               <div class="card">
                 <div class="d-flex justify-content-between">
                   <div class="StaNam">Station 001</div>
@@ -60,7 +164,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 m1">
+            <div class="col-sm-6">
               <div class="card">
                 <div class="d-flex justify-content-between">
                   <div class="StaNam">Station 002</div>
@@ -82,7 +186,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-1">
             <div class="col-sm-6">
               <div class="card">
                 <div class="d-flex justify-content-between">
@@ -126,7 +230,8 @@
               </div>
             </div>
           </div>
-          <div class="row">
+
+          <div class="row mt-1">
             <div class="col-sm-6">
               <div class="card">
                 <div class="d-flex justify-content-between">
@@ -170,7 +275,8 @@
               </div>
             </div>
           </div>
-          <div class="row">
+
+          <div class="row mt-1">
             <div class="col-sm-6">
               <div class="card">
                 <div class="d-flex justify-content-between">
@@ -214,7 +320,8 @@
               </div>
             </div>
           </div>
-          <div class="row">
+
+          <div class="row mt-1">
             <div class="col-sm-6">
               <div class="card">
                 <div class="d-flex justify-content-between">
