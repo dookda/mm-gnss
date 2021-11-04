@@ -7,7 +7,6 @@ const db = con.db;
 
 const path = require('path')
 const { spawn } = require('child_process')
-const { PythonShell } = require("python-shell");
 
 app.get("/api/basestation", (req, res) => {
     const sql = `SELECT * FROM base_sta`;
@@ -95,7 +94,6 @@ let selectLastdata = (station) => {
 //     selectLastdata("07")
 // }, 5000)
 
-
 function runScript(station) {
     return spawn('python3', [
         "-u",
@@ -103,18 +101,7 @@ function runScript(station) {
         station
     ]);
 }
-// const subprocess = runScript()
-// subprocess.stdout.on('data', (data) => {
-//     console.log(`data:${data}`);
-// });
-// subprocess.stderr.on('data', (data) => {
-//     console.log(`error:${data}`);
-// });
-// subprocess.stderr.on('close', () => {
-//     console.log("Closed");
-// });
 
-// const subprocess = spawn('python3', ['./../filter/alert_station1.py']);
 let subprocess01 = runScript("01")
 let subprocess02 = runScript("02")
 let subprocess03 = runScript("03")
@@ -146,58 +133,85 @@ app.post('/api/startpython', (req, res) => {
         subprocess01 = null;
         subprocess01 = runScript("01");
         resp = startsubprocess(subprocess01);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
     if (station == "02") {
         subprocess02 = null;
         subprocess02 = runScript("02");
         resp = startsubprocess(subprocess02);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
     if (station == "03") {
         subprocess03 = null;
         subprocess03 = runScript("03")
         resp = startsubprocess(subprocess03);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
     if (station == "04") {
         subprocess04 = runScript("04")
         resp = startsubprocess(subprocess04);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
     if (station == "05") {
         subprocess05 = runScript("05")
         resp = startsubprocess(subprocess05);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
     if (station == "06") {
         subprocess06 = runScript("06")
         resp = startsubprocess(subprocess06);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
     if (station == "07") {
         subprocess07 = runScript("07")
         resp = startsubprocess(subprocess07);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
     if (station == "08") {
         subprocess08 = runScript("08")
         resp = startsubprocess(subprocess08);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
     if (station == "09") {
         subprocess09 = runScript("09")
         resp = startsubprocess(subprocess09);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
     if (station == "10") {
         subprocess10 = runScript("10")
         resp = startsubprocess(subprocess10);
+
+        res.status(200).json({
+            status: "start"
+        });
     }
-
-    res.status(200).json({
-        status: resp
-    })
-
-    // subprocess = runScript()
-    // subprocess.stdout.on('data', (data) => {
-    //     // console.log(`data:${data}`);
-    //     res.status(200).json({
-    //         status: `Start:${data}`
-    //     })
-    // });
-
 })
 
 app.post('/api/stoppython', (req, res) => {
@@ -226,7 +240,6 @@ app.post('/api/stoppython', (req, res) => {
         status: `${station} Stop`
     })
 })
-
 
 
 module.exports = app;
