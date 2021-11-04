@@ -226,17 +226,18 @@ let loadData = async (stat_code) => {
         last = cat;
 
         await axios.post("http://localhost:3000/api/lastposition", { stat_code }).then(r => {
-            // console.log(r);
-            changeColorMarker(stat_code, r.data.data[0].status)
+            console.log(r.data.data[0]);
+            changeColorMarker(stat_code, r.data.data[0].status);
+            $("#gid_sta" + stat_code).val(r.data.data[0].id)
         })
-
     } catch (err) {
         console.error(err);
     }
 }
 
 let reset = (stat_code, value) => {
-    axios.post("http://localhost:3000/api/reset", { stat_code, value }).then(r => {
+    let id = $("#gid_sta" + stat_code).val()
+    axios.post("http://localhost:3000/api/reset", { stat_code, id }).then(r => {
         loadData(stat_code);
     })
     axios.get("http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=0").then(i => console.log("turn off yellow"))

@@ -44,9 +44,9 @@ app.post("/api/last20position", (req, res) => {
 })
 
 app.post("/api/reset", (req, res) => {
-    const { stat_code, value } = req.body;
+    const { stat_code, id } = req.body;
     // console.log(stat_code);
-    const sql = `INSERT INTO dataset(stat_code, ts, status)VALUES('${stat_code}', now(), ${value})`;
+    const sql = `UPDATE dataset SET status=0 WHERE id=${id}`;
     db.query(sql).then((r) => {
         res.status(200).json({
             status: 'ok'
