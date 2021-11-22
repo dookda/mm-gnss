@@ -190,126 +190,81 @@ let showChart = async (stat_code, param, cat, dat) => {
     });
 }
 
-let last = []
-let loadData = async (stat_code) => {
-    // console.log(stat_code);
-    try {
-        let resp = await axios.post("http://localhost:3000/api/last20position", { stat_code })
+// let last = []
+// let loadData = async (stat_code) => {
+//     // console.log(stat_code);
+//     try {
+//         let resp = await axios.post("http://localhost:3000/api/last20position", { stat_code })
 
-        let de = [];
-        let dn = [];
-        let dh = [];
-        let cat = [];
-        let status = 0;
-        let d;
-        let t;
-        resp.data.data.map(i => {
-            // console.log(i);
-            d = i.d;
-            t = i.t;
-            status = i.status;
-            $("#sta").text(`${i.stname}`);
-            $("#date").text(`${i.d}`);
-            $("#time").text(`${i.t}`);
-            cat.push(i.t);
-            de.push(Number(i.de));
-            dn.push(Number(i.dn));
-            dh.push(Number(i.dh));
-        });
+//         let de = [];
+//         let dn = [];
+//         let dh = [];
+//         let cat = [];
+//         let status = 0;
+//         let d;
+//         let t;
+//         resp.data.data.map(i => {
+//             // console.log(i);
+//             d = i.d;
+//             t = i.t;
+//             status = i.status;
+//             $("#sta").text(`${i.stname}`);
+//             $("#date").text(`${i.d}`);
+//             $("#time").text(`${i.t}`);
+//             cat.push(i.t);
+//             de.push(Number(i.de));
+//             dn.push(Number(i.dn));
+//             dh.push(Number(i.dh));
+//         });
 
-        if (last.toString() !== cat.toString()) {
-            await showChart(stat_code, "de", cat, de);
-            await showChart(stat_code, "dn", cat, dn);
-            await showChart(stat_code, "dh", cat, dh);
-        }
-        // console.log(last, cat);
-        last = cat;
+//         if (last.toString() !== cat.toString()) {
+//             await showChart(stat_code, "de", cat, de);
+//             await showChart(stat_code, "dn", cat, dn);
+//             await showChart(stat_code, "dh", cat, dh);
+//         }
+//         // console.log(last, cat);
+//         last = cat;
 
-        await axios.post("http://localhost:3000/api/lastposition", { stat_code }).then(r => {
-            console.log(r.data.data[0]);
-            changeColorMarker(stat_code, r.data.data[0].status);
-            $("#gid_sta" + stat_code).val(r.data.data[0].id)
-        })
-    } catch (err) {
-        console.error(err);
-    }
-}
+//         await axios.post("http://localhost:3000/api/lastposition", { stat_code }).then(r => {
+//             console.log(r.data.data[0]);
+//             changeColorMarker(stat_code, r.data.data[0].status);
+//             $("#gid_sta" + stat_code).val(r.data.data[0].id)
+//         })
+//     } catch (err) {
+//         console.error(err);
+//     }
+// }
 
-let reset = (stat_code, value) => {
-    let id = $("#gid_sta" + stat_code).val()
-    axios.post("http://localhost:3000/api/reset", { stat_code, id }).then(r => {
-        loadData(stat_code);
-    })
-    axios.get("http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=0").then(i => console.log("turn off yellow"))
-    axios.get("http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=0").then(i => console.log("turn off red"))
-}
+// let reset = (stat_code, value) => {
+//     let id = $("#gid_sta" + stat_code).val()
+//     axios.post("http://localhost:3000/api/reset", { stat_code, id }).then(r => {
+//         loadData(stat_code);
+//     })
+//     // axios.get("http://25.81.83.49/rpidata/setRelay/?cha=3&onoff=0").then(i => console.log("turn off yellow"))
+//     // axios.get("http://25.81.83.49/rpidata/setRelay/?cha=4&onoff=0").then(i => console.log("turn off red"))
+// }
 
-loadData("01");
-loadData("02");
-loadData("03");
-loadData("04");
-loadData("05");
-loadData("06");
-loadData("07");
-loadData("08");
-loadData("09");
-loadData("10");
+// loadData("01");
+// loadData("02");
+// loadData("03");
+// loadData("04");
+// loadData("05");
+// loadData("06");
+// loadData("07");
+// loadData("08");
+// loadData("09");
+// loadData("10");
 
-setInterval(() => {
-    loadData("01");
-    loadData("02");
-    loadData("03");
-    loadData("04");
-    loadData("05");
-    loadData("06");
-    loadData("07");
-    loadData("08");
-    loadData("09");
-    loadData("10");
-}, 5000)
+// setInterval(() => {
+//     loadData("01");
+//     loadData("02");
+//     loadData("03");
+//     loadData("04");
+//     loadData("05");
+//     loadData("06");
+//     loadData("07");
+//     loadData("08");
+//     loadData("09");
+//     loadData("10");
+// }, 5000)
 
-let startPy = (station) => {
-    axios.post('/api/startpython', { station }).then(r => {
-        $("#status_sta" + station).html("starting...");
-        $("#btn_sta" + station).prop("disabled", true);
-        console.log(r)
-    });
-}
-
-let stopPy = (station) => {
-    axios.post('/api/stoppython', { station }).then(r => {
-        $("#status_sta" + station).html("stoped");
-        $("#btn_sta" + station).prop("disabled", false);
-        console.log(r)
-    });
-}
-
-$("#status_sta01").html("starting...");
-$("#btn_sta01").prop("disabled", true);
-
-$("#status_sta02").html("starting...");
-$("#btn_sta02").prop("disabled", true);
-
-$("#status_sta03").html("starting...");
-$("#btn_sta03").prop("disabled", true);
-
-$("#status_sta04").html("starting...");
-$("#btn_sta04").prop("disabled", true);
-
-$("#status_sta05").html("starting...");
-$("#btn_sta05").prop("disabled", true);
-
-$("#status_sta06").html("starting...");
-$("#btn_sta06").prop("disabled", true);
-
-$("#status_sta07").html("starting...");
-$("#btn_sta07").prop("disabled", true);
-
-$("#status_sta08").html("starting...");
-$("#btn_sta08").prop("disabled", true);
-
-$("#status_sta09").html("starting...");
-$("#btn_sta09").prop("disabled", true);
-
-$("#status_sta10").html("starting...");
-$("#btn_sta10").prop("disabled", true);

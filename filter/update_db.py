@@ -13,13 +13,15 @@ conn = pg2.connect(database=conn["dbName"], user=conn["dbUser"],
 conn.autocommit = True
 cursor = conn.cursor()
 
+# def timeConvert():
+
 
 def insertDb(dat):
     ts = f"{dat[1][4:8]}-{dat[1][2:4]}-{dat[1][0:2]}"
     sql = '''INSERT INTO dataset(stat_code, dd, hh, mm, ts, de, dn, dh, status)VALUES(
         '{station}','{dd}','{hh}','{mm}','{ddmmyy} {hh}:{mm}',{de},{dn},{dz},{status})'''.format(
         station=dat[0], dd=dat[1], hh=dat[2], mm=dat[3], ddmmyy=ts, de=dat[4], dn=dat[5], dz=dat[6], status=dat[7].rstrip("\n"))
-    cursor.execute(sql)
+    # cursor.execute(sql)
     print(sql)
 
 
