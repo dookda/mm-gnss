@@ -109,7 +109,19 @@ app.post("/pushmsg", (req, res) => {
     client.pushMessage(userId, msg)
 });
 
-app.post("/multicast", (req, res) => {
+app.get("/api/alert/:station/:status", (req, res) => {
+    var station = req.params.station;
+    var status = req.params.status;
+    var status_txt = "";
+    console.log(station, status)
+    
+    if (status == 1) {
+        status_txt = "เล็กน้อย (10-20 cm)"
+    }else if (status == 2) {
+        status_txt = "ปานกลาง (20-30 cm)"
+    }else if (status == 3) {
+        status_txt = "ค่อนข้างสูง (>30 cm)"
+    }
 
     const sql = `SELECT userid FROM user_tb`;
     let usrArr = []
@@ -121,7 +133,7 @@ app.post("/multicast", (req, res) => {
 
         const msg1 = {
             type: 'text',
-            text: 'ทดสอบ,'
+            text: `มีการเคลื่อนตัวของสถานี ${station} ในระยะ ${status_txt}`
         };
 
         const msg2 = {
@@ -150,7 +162,8 @@ app.post("/multicast", (req, res) => {
             }
         }
 
-        client.multicast(usrArr, [msg1, msg2])
+        // client.multicast(usrArr, [msg1, msg2])
+        client.multicast(usrArr, [msg1])
 
     });
 });

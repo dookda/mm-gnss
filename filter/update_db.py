@@ -92,7 +92,8 @@ def runSched():
 
 
 if __name__ == "__main__":
-    schedule.every(5).seconds.do(runSched)
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    def run():
+        schedule.every(5).seconds.do(runSched)
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
