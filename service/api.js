@@ -122,7 +122,7 @@ app.post("/api/updateuser", (req, res) => {
 
 app.post("/api/deleteuser", (req, res) => {
     const { userid } = req.body;
-    const sql = `DELETE FROM usertb WHERE userid='${userid}'`;
+    const sql = `DELETE FROM user_tb WHERE userid='${userid}'`;
     db.query(sql).then(r => {
         res.status(200).json({
             data: r.rows
@@ -131,8 +131,8 @@ app.post("/api/deleteuser", (req, res) => {
 })
 
 app.post("/api/updateauth", (req, res) => {
-    const { userid, usertype } = req.body;
-    const sql = `UPDATE usertb SET usertype='${usertype}' WHERE userid='${userid}'`;
+    const { userid, user_type } = req.body;
+    const sql = `UPDATE user_tb SET user_type='${user_type}' WHERE userid='${userid}'`;
     db.query(sql).then(r => {
         res.status(200).json({
             data: r.rows

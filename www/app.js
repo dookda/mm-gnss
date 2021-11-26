@@ -35,7 +35,7 @@ const ghyb = L.tileLayer('https://{s}.google.com/vt/lyrs=y,m&x={x}&y={y}&z={z}',
     lyr: 'basemap'
 });
 
-var prov = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/wms?", {
+var prov = L.tileLayer.wms("https://rti2dss.com:8443/geoserver/wms?", {
     layers: 'th:province_4326',
     format: 'image/png',
     transparent: true,
@@ -226,11 +226,11 @@ let loadData = async (stat_code) => {
         //console.log(stat_code)
         await axios.post("/api/lastposition", { stat_code }).then(r => {
             console.log(r.data.data.length);
-            if(r.data.data.length>0){
+            if (r.data.data.length > 0) {
                 changeColorMarker(stat_code, r.data.data[0].status)
                 $("#gid_sta" + stat_code).val(r.data.data[0].id)
             }
-            
+
         })
 
     } catch (err) {
