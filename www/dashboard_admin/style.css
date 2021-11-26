@@ -4,18 +4,37 @@
     background-color: rgb(23, 26, 216);
 }
 
-.card-body{
-height: 70px;
-background-color: yellow;
+.card-bg-white{
+    height: auto;
+}
 
+.card-body{
+/* height: 70px; */
+    background-color: yellow;
+    padding: 0px !important;
+}   
+
+.row-chart{
+    margin: 0px !important;
+    padding: 1px !important;
+}
+
+.row-col{
+    padding: 0px !important;
+}
+
+.chart{
+    height: 180px;
+    width: 100%;
+    border-radius: 5px;
 }
 
 .chart-body{
     border-radius: 5px;
     height: 100px;
-    flex: 1 1 auto;
-    padding: 0rem 0rem;
-	background:#0015C0;
+    /* flex: 1 1 auto; */
+    /* padding: 0rem 0rem; */
+    background:#0015C0;
 }
 
 .chart-title{
@@ -24,7 +43,7 @@ background-color: yellow;
 }
 
 #map{
-    height: 640px;
+    height: 540px;
     border-radius: 15px;
 }
 

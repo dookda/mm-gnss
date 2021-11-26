@@ -52,8 +52,8 @@
                 <p></p>
                 <div class="card mt-20" style="text-align: center; border: hidden;">
                     <button type="button" class="badge rounded-pill bg-info" style="border: hidden;"
-                        onclick="register()">
-                        <h5>ลงทะเบียน</h5>
+                        onclick="updateUser()">
+                        <h5>บันทึก</h5>
                     </button>
                 </div>
                 <span id="success"></span>
@@ -63,7 +63,18 @@
     </div>
 
     <!-- <button type="button" class="btn btn-dark" onclick="orderMarker()">คำนวณลำดับ</button> -->
-
+    <div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    บันทึกข้อมูลสำเร็จ
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- JavaScript Bundle with Popper -->
