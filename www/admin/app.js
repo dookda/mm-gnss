@@ -42,6 +42,8 @@ let gotoDashboard = () => {
 }
 
 let gotoReportAdmin = () => {
+    let userid = document.getElementById('userid').value
+    sessionStorage.setItem("admin", userid);
     location.href = "./../dashboard_admin/index.html"
 }
 
@@ -70,6 +72,7 @@ async function getUserid() {
     document.getElementById("profile").src = await profile.pictureUrl;
     document.getElementById("displayName").innerHTML = await profile.displayName;
     document.getElementById("statusMessage").innerHTML = await profile.statusMessage;
+    document.getElementById("userid").value = await profile.userId;
     chkAdmin(await profile.userId)
 }
 

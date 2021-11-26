@@ -30,6 +30,7 @@
         </div>
         <div class="bg-light p-5 mb-3 rounded mt-3">
             <p>​หน้าต่าง Dashboard สำหรับแอมิน</p>
+            <input type="hidden" id="userid">
             <button class="btn btn-info" onclick="gotoReportAdmin()"> ไปยัง Dashboard สำหรับแอมิน</button>
         </div>
 
@@ -40,7 +41,8 @@
 
 
     </main>
-    <div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">

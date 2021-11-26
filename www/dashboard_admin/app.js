@@ -1,3 +1,20 @@
+let chkAdmin = (userid) => {
+    var modal = new bootstrap.Modal(document.getElementById('modal'))
+    if (userid) {
+        axios.post('/api/chkadmin', { userid }).then((r) => {
+            r.data.data[0].user_type == 'admin' ? null : modal.show();
+            sessionStorage.removeItem("admin")
+        })
+    } else {
+        modal.show()
+    }
+}
+
+let gotoDashboard = () => {
+    location.href = "./../index.html"
+}
+
+chkAdmin(sessionStorage.getItem("admin"))
 
 var map = L.map('map', {
     center: [18.359549715002537, 99.69806926182481],
@@ -35,7 +52,7 @@ const ghyb = L.tileLayer('https://{s}.google.com/vt/lyrs=y,m&x={x}&y={y}&z={z}',
     lyr: 'basemap'
 });
 
-var prov = L.tileLayer.wms("http://rti2dss.com:8080/geoserver/wms?", {
+var prov = L.tileLayer.wms("https://rti2dss.com:8443/geoserver/wms?", {
     layers: 'th:province_4326',
     format: 'image/png',
     transparent: true,
@@ -226,11 +243,11 @@ let loadData = async (stat_code) => {
         //console.log(stat_code)
         await axios.post("/api/lastposition", { stat_code }).then(r => {
             console.log(r.data.data.length);
-            if(r.data.data.length>0){
+            if (r.data.data.length > 0) {
                 changeColorMarker(stat_code, r.data.data[0].status)
                 $("#gid_sta" + stat_code).val(r.data.data[0].id)
             }
-            
+
         })
 
     } catch (err) {
@@ -272,49 +289,3 @@ setInterval(() => {
     loadData("09");
     loadData("10");
 }, 5000)
-
-let startPy = (station) => {
-    axios.post('/api/startpython', { station }).then(r => {
-        $("#status_sta" + station).html("starting...");
-        $("#btn_sta" + station).prop("disabled", true);
-        console.log(r)
-    });
-}
-
-let stopPy = (station) => {
-    axios.post('/api/stoppython', { station }).then(r => {
-        $("#status_sta" + station).html("stoped");
-        $("#btn_sta" + station).prop("disabled", false);
-        console.log(r)
-    });
-}
-
-$("#status_sta01").html("starting...");
-$("#btn_sta01").prop("disabled", true);
-
-$("#status_sta02").html("starting...");
-$("#btn_sta02").prop("disabled", true);
-
-$("#status_sta03").html("starting...");
-$("#btn_sta03").prop("disabled", true);
-
-$("#status_sta04").html("starting...");
-$("#btn_sta04").prop("disabled", true);
-
-$("#status_sta05").html("starting...");
-$("#btn_sta05").prop("disabled", true);
-
-$("#status_sta06").html("starting...");
-$("#btn_sta06").prop("disabled", true);
-
-$("#status_sta07").html("starting...");
-$("#btn_sta07").prop("disabled", true);
-
-$("#status_sta08").html("starting...");
-$("#btn_sta08").prop("disabled", true);
-
-$("#status_sta09").html("starting...");
-$("#btn_sta09").prop("disabled", true);
-
-$("#status_sta10").html("starting...");
-$("#btn_sta10").prop("disabled", true);

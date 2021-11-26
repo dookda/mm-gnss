@@ -201,16 +201,16 @@ app.get('/api/status_reset/:station', (req, res) => {
 
 
 setInterval(() => {
-    // selectLastdata("01");
-    // selectLastdata("02");
-    // selectLastdata("03");
-    // selectLastdata("04");
-    // selectLastdata("05");
-    // selectLastdata("06");
-    // selectLastdata("07");
-    // selectLastdata("08");
-    // selectLastdata("09");
-    // selectLastdata("10");
+    selectLastdata("01");
+    selectLastdata("02");
+    selectLastdata("03");
+    selectLastdata("04");
+    selectLastdata("05");
+    selectLastdata("06");
+    selectLastdata("07");
+    selectLastdata("08");
+    selectLastdata("09");
+    selectLastdata("10");
 }, 20000)
 
 module.exports = app;
