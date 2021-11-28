@@ -121,7 +121,7 @@ app.get("/api/alert/:station/:status", (req, res) => {
         status_txt = "ค่อนข้างสูง (>30 cm)"
     }
 
-    const sql = `SELECT userid FROM user_tb`;
+    const sql = `SELECT userid FROM user_tb WHERE user_type='admin'`;
     let usrArr = []
     db.query(sql).then(async (r) => {
 
