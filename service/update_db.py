@@ -28,8 +28,15 @@ def insertDb(dat):
     sql = '''INSERT INTO dataset(stat_code, dd, hh, mm, ts, de, dn, dh, status)VALUES(
         '{station}','{dd}','{hh}','{mm}','{ddmmyy} {hh}:{mm}',{de},{dn},{dz},{status})'''.format(
         station=dat[0], dd=dat[1], hh=h, mm=dat[3], ddmmyy=ts, de=dat[4], dn=dat[5], dz=dat[6], status=dat[7].rstrip("\n"))
-    cursor.execute(sql)
+    # cursor.execute(sql)
     print(sql)
+
+    url = 'http://localhost:3000/api/update_db'
+    myobj = {'sql': sql}
+
+    x = requests.post(url, data=myobj)
+
+    print(x.content)
 
 
 def checkData(dat):
@@ -67,7 +74,7 @@ def runSched():
 
 
 if __name__ == "__main__":
-    schedule.every(10).seconds.do(runSched)
+    schedule.every(5).seconds.do(runSched)
     while True:
         schedule.run_pending()
         time.sleep(1)

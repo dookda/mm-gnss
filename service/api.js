@@ -140,6 +140,16 @@ app.post("/api/updateauth", (req, res) => {
     })
 })
 
+app.post("/api/update_db", (req, res) => {
+    const { sql } = req.body;
+    console.log(sql);
+    db.query(sql).then(r => {
+        res.status(200).json({
+            data: "success"
+        })
+    })
+})
+
 let selectLastdata = (station) => {
     const sql = `SELECT stat_code, status FROM dataset d
                 WHERE ts = (SELECT MAX(ts) FROM dataset e 
@@ -200,17 +210,17 @@ app.get('/api/status_reset/:station', (req, res) => {
 })
 
 
-setInterval(() => {
-    selectLastdata("01");
-    selectLastdata("02");
-    selectLastdata("03");
-    selectLastdata("04");
-    selectLastdata("05");
-    selectLastdata("06");
-    selectLastdata("07");
-    selectLastdata("08");
-    selectLastdata("09");
-    selectLastdata("10");
-}, 20000)
+// setInterval(() => {
+//     selectLastdata("01");
+//     selectLastdata("02");
+//     selectLastdata("03");
+//     selectLastdata("04");
+//     selectLastdata("05");
+//     selectLastdata("06");
+//     selectLastdata("07");
+//     selectLastdata("08");
+//     selectLastdata("09");
+//     selectLastdata("10");
+// }, 20000)
 
 module.exports = app;
