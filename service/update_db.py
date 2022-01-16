@@ -33,9 +33,7 @@ def insertDb(dat):
 
     url = 'http://localhost:3000/api/update_db'
     myobj = {'sql': sql}
-
     x = requests.post(url, data=myobj)
-
     print(x.content)
 
 
