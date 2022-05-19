@@ -73,7 +73,6 @@ app.post("/api/register", (req, res) => {
     });
 });
 
-
 app.post("/api/getalluser", (req, res) => {
     const { userid } = req.body;
     const sql = `SELECT * FROM user_tb ORDER BY username ASC`;
