@@ -26,9 +26,20 @@ app.post("/api/lastposition", (req, res) => {
     });
 })
 
+app.get("/api/selectdata", (req, res) => {
+    // const { stat_code, } = req.body;
+    const sql = `SELECT stat_code, de, dn, dh, ts7, status FROM dataset 
+	WHERE stat_code='10' AND ts7 BETWEEN '2022-05-18' AND '2022-05-19 24:00:00'
+	ORDER BY ts7 desc`;
+    db.query(sql).then((r) => {
+        res.status(200).json({
+            data: r.rows
+        });
+    });
+})
+
 app.post("/api/last20position", (req, res) => {
     const { stat_code } = req.body;
-    // console.log(stat_code);
     const sql = `select a.* from (SELECT stat_code, de, dn, dh, status,
         TO_CHAR(ts,'HH24:MI') as t, TO_CHAR(ts, 'DD-MM-YYYY') as d
     FROM dataset WHERE stat_code='${stat_code}' ORDER BY ts DESC limit 20) a

@@ -1,3 +1,4 @@
+const url = "https://rtk-landmos.com:3000";
 
 var map = L.map('map', {
     center: [18.359549715002537, 99.69806926182481],
@@ -194,7 +195,7 @@ let last = []
 let loadData = async (stat_code) => {
     // console.log(stat_code);
     try {
-        let resp = await axios.post("/api/last20position", { stat_code })
+        let resp = await axios.post(url + "/api/last20position", { stat_code })
         let de = [];
         let dn = [];
         let dh = [];
@@ -224,7 +225,7 @@ let loadData = async (stat_code) => {
         // console.log(last, cat);
         last = cat;
         //console.log(stat_code)
-        await axios.post("/api/lastposition", { stat_code }).then(r => {
+        await axios.post(url + "/api/lastposition", { stat_code }).then(r => {
             console.log(r.data.data.length);
             if (r.data.data.length > 0) {
                 changeColorMarker(stat_code, r.data.data[0].status)
@@ -240,10 +241,10 @@ let loadData = async (stat_code) => {
 
 let reset = (stat_code, value) => {
     let id = $("#gid_sta" + stat_code).val()
-    axios.post("/api/reset", { stat_code, id }).then(r => {
+    axios.post(url + "/api/reset", { stat_code, id }).then(r => {
         loadData(stat_code);
     })
-    axios.get(`/api/status_reset/${stat_code}`).then(r => {
+    axios.get(`${url}/api/status_reset/${stat_code}`).then(r => {
         // loadData(stat_code);
         console.log(r)
     })
@@ -274,7 +275,7 @@ setInterval(() => {
 }, 5000)
 
 let startPy = (station) => {
-    axios.post('/api/startpython', { station }).then(r => {
+    axios.post(url + '/api/startpython', { station }).then(r => {
         $("#status_sta" + station).html("starting...");
         $("#btn_sta" + station).prop("disabled", true);
         console.log(r)
@@ -282,7 +283,7 @@ let startPy = (station) => {
 }
 
 let stopPy = (station) => {
-    axios.post('/api/stoppython', { station }).then(r => {
+    axios.post(url + '/api/stoppython', { station }).then(r => {
         $("#status_sta" + station).html("stoped");
         $("#btn_sta" + station).prop("disabled", false);
         console.log(r)
