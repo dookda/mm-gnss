@@ -22,10 +22,9 @@
         <div class=" shadow p-3 bg-body rounded mt-3">
             <div class=" card-body">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <label for="stat_code">เลือกสถานี</label>
-                        <select class="form-select" aria-label="station" id="stat_code">
-                            <option selected>เลือก</option>
+                    <div class="col-sm-3">
+                        <label for="stat_code1">เลือก Station</label>
+                        <select class="form-select" aria-label="station1" id="stat_code1">
                             <option value="01">01</option>
                             <option value="02">02</option>
                             <option value="03">03</option>
@@ -38,11 +37,26 @@
                             <option value="10">10</option>
                         </select>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
+                        <label for="stat_code2">เลือก Station</label>
+                        <select class="form-select" aria-label="station2" id="stat_code2">
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
                         <label for="start_date">เลือกวันเริ่มต้น</label>
                         <input class="form-control" type="date" name="" id="start_date">
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <label for="end_date">เลือกวันสิ้นสุด</label>
                         <input class="form-control" type="date" name="" id="end_date">
                     </div>
@@ -55,25 +69,40 @@
         <div class=" shadow p-3 bg-body rounded mt-3">
             <div class="row  ">
                 <div class="col-md-6 mt-1">
-                    <canvas id="en" height="200"></canvas>
+                    <canvas id="en" height="250"></canvas>
                     <button class="btn btn-light" onclick="resetZoom()">reset zoom</button>
 
                 </div>
 
                 <div class="col-md-6 mt-1">
-                    <canvas id="h" height="200"></canvas>
-                    <button class="btn btn-light" onclick="resetZoomh()">reset zoom</button>
+                    <canvas id="h" height="250"></canvas>
+                    <button class="btn btn-light" onclick="resetZoomH()">reset zoom</button>
                 </div>
 
             </div>
         </div>
 
+        <div class=" shadow p-3 bg-body rounded mt-3">
+            <div class="row  ">
+                <div class="col-md-6 mt-1">
+                    <canvas id="e" height="250"></canvas>
+                    <button class="btn btn-light" onclick="resetZoomE()">reset zoom</button>
+
+                </div>
+
+                <div class="col-md-6 mt-1">
+                    <canvas id="n" height="250"></canvas>
+                    <button class="btn btn-light" onclick="resetZoomN()">reset zoom</button>
+                </div>
+
+            </div>
+        </div>
         <div class=" shadow p-3 bg-body rounded mt-3 mb-5">
             <div class="card-body">
                 <table id="tab" class="display" width="100%">
                     <thead>
                         <tr>
-                            <th>สถานี</th>
+                            <th>Station</th>
                             <th>ค่า &Delta;de</th>
                             <th>ค่า &Delta;dn</th>
                             <th>ค่า &Delta;dh</th>
@@ -82,6 +111,23 @@
                         </tr>
                     </thead>
                 </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="checkModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="w3-animate-top"></div>
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-body">
+                    กรุณาเลือก Station ที่ <b><u>ต่างกัน</u></b>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" onclick="closeModal()">ปิด</button>
+                </div>
             </div>
         </div>
     </div>
