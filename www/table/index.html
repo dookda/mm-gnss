@@ -48,25 +48,29 @@
                     </div>
                 </div>
                 <p></p>
-                <div class="btn btn-success" onclick="getData()">ตกลง</div>
+                <div class="btn btn-light" onclick="getData()">ตกลง</div>
             </div>
         </div>
 
         <div class=" shadow p-3 bg-body rounded mt-3">
-            <div class="row align-items-center h-100 ">
-                <div class="col-6 mx-auto">
-                    <div class=" h-100  justify-content-center">
+            <div class="row  ">
+                <div class="col-md-6 mt-1">
+                    <canvas id="en" height="200"></canvas>
+                    <button class="btn btn-light" onclick="resetZoom()">reset zoom</button>
 
-                        <canvas id="en" height="200"></canvas>
-
-                    </div>
                 </div>
+
+                <div class="col-md-6 mt-1">
+                    <canvas id="h" height="200"></canvas>
+                    <button class="btn btn-light" onclick="resetZoomh()">reset zoom</button>
+                </div>
+
             </div>
         </div>
 
         <div class=" shadow p-3 bg-body rounded mt-3 mb-5">
             <div class="card-body">
-                <table id="tab" class="table table-striped display nowrap" width="100%">
+                <table id="tab" class="display" width="100%">
                     <thead>
                         <tr>
                             <th>สถานี</th>
@@ -74,7 +78,7 @@
                             <th>ค่า &Delta;dn</th>
                             <th>ค่า &Delta;dh</th>
                             <th>status</th>
-                            <th>เวลา</th>
+                            <th>วันที่ เวลา</th>
                         </tr>
                     </thead>
                 </table>
@@ -97,7 +101,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.1/chartjs-plugin-zoom.min.js"></script>
     <script src="./app.js"></script>
 </body>
 

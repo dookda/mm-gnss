@@ -2,7 +2,27 @@
 
 
 const ctx = document.getElementById('en').getContext('2d');
-const charten = new Chart(ctx, {
+
+const scales = {
+    x: {
+        min: -80,
+        max: 80,
+        title: {
+            display: true,
+            text: 'de'
+        }
+    },
+    y: {
+        min: -80,
+        max: 80,
+        title: {
+            display: true,
+            text: 'dn'
+        }
+    }
+}
+
+const chart = new Chart(ctx, {
     type: 'scatter',
     data: {},
     options: {
@@ -14,29 +34,85 @@ const charten = new Chart(ctx, {
             },
             title: {
                 display: true,
-                text: 'ค่าการเคลื่อนตัว (de, dn)'
-            }
+                text: 'ค่าการเคลื่อนตัวของ de และ dn '
+            },
+            zoom: {
+                pan: {
+                    enabled: true,
+                    mode: 'xy',
+                },
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true
+                    },
+                    drag: {
+                        enabled: false
+                    },
+                    mode: 'xy',
+                },
+            },
+        },
+        scales: scales
+    },
+});
+
+const resetZoom = () => {
+    chart.resetZoom();
+}
+// chart h
+const cth = document.getElementById('h').getContext('2d');
+
+const charth = new Chart(cth, {
+    type: 'line',
+    data: {},
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                display: false
+            },
+            title: {
+                display: true,
+                text: 'ค่าการเคลื่อนตัวแนว dh'
+            },
+            tooltip: true,
+            zoom: {
+                pan: {
+                    enabled: true,
+                    mode: 'x',
+                },
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true
+                    },
+                    drag: {
+                        enabled: false
+                    },
+                    mode: 'x',
+                },
+            },
         },
         scales: {
-            x: {
-                // min: -80,
-                // max: 80,
-                title: {
-                    display: true,
-                    text: 'de'
-                }
-            },
             y: {
-                // min: -80,
-                // max: 80,
                 title: {
                     display: true,
-                    text: 'dn'
+                    text: 'dh'
                 }
             }
         }
     },
 });
+
+const resetZoomh = () => {
+    charth.resetZoom();
+}
 
 
 let showData = async (data) => {
@@ -67,18 +143,33 @@ let showData = async (data) => {
     table.on('search.dt', async () => {
         let data = table.rows({ search: 'applied' }).data();
         let arr = []
+        let h = []
+        let ts = []
         await data.map(i => {
             arr.push({ x: i.de, y: i.dn })
+            h.push(i.dh)
+            ts.push(i.ts7)
         })
 
-        charten.data = {
+        chart.data = {
             datasets: [{
                 // label: 'Scatter Dataset',
                 data: arr,
                 backgroundColor: 'rgb(255, 99, 132)'
             }],
         };
-        charten.update();
+        chart.update();
+
+        charth.data = {
+            labels: ts,
+            datasets: [{
+                label: 'dh',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: h,
+            }]
+        };
+        charth.update();
     });
 
     let findData = function () {
