@@ -100,7 +100,7 @@ const resetZoom = () => {
 }
 // chart h
 const cth = document.getElementById('h').getContext('2d');
-
+var timeFormat = 'YYYY/MM/DD HH:mm:ss';
 const charth = new Chart(cth, {
     type: 'line',
     data: {},
@@ -141,7 +141,18 @@ const charth = new Chart(cth, {
                     display: true,
                     text: 'dh'
                 }
-            }
+            },
+            xAxes: [{
+                type: "time",
+                time: {
+                    format: timeFormat,
+                    tooltipFormat: 'll'
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                }
+            }],
         }
     },
 });
@@ -166,7 +177,7 @@ let showData = async (data) => {
             { data: 'dn' },
             { data: 'dh' },
             { data: 'status' },
-            { data: 'ts7' }
+            { data: 'ts7t' }
         ],
         dom: 'Bfrtip',
         buttons: [
@@ -184,9 +195,9 @@ let showData = async (data) => {
         await data.map(i => {
             arr.push({ x: i.de, y: i.dn })
             h.push(i.dh)
-            ts.push(i.ts7)
+            ts.push(i.ts7t)
         })
-
+        console.log(ts);
         chart.data = {
             datasets: [{
                 label: 'de',
@@ -208,10 +219,10 @@ let showData = async (data) => {
         charth.update();
     });
 
-    let findData = function () {
-        console.log(this.value);
-        table.search(this.value).draw();
-    }
+    // let findData = function () {
+    //     console.log(this.value);
+    //     table.search(this.value).draw();
+    // }
     // document.getElementById("tam").addEventListener("change", findData);
 }
 
