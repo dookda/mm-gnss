@@ -3,25 +3,6 @@
 
 const ctx = document.getElementById('en').getContext('2d');
 
-const scales = {
-    x: {
-        min: -80,
-        max: 80,
-        title: {
-            display: true,
-            text: 'de'
-        }
-    },
-    y: {
-        min: -80,
-        max: 80,
-        title: {
-            display: true,
-            text: 'dn'
-        }
-    }
-}
-
 const chart = new Chart(ctx, {
     type: 'scatter',
     data: {},
@@ -55,7 +36,62 @@ const chart = new Chart(ctx, {
                 },
             },
         },
-        scales: scales
+        scales: {
+            x: {
+                min: -80,
+                max: 80,
+                title: {
+                    display: true,
+                    text: 'de'
+                },
+                grid: {
+                    display: true,
+                    drawTicks: true,
+                    drawBorder: true,
+                    lineWidth: function (context) {
+                        if (context.tick.value == 0) {
+                            return 2;
+                        } {
+                            return 0.5;
+                        }
+                    },
+                    color: function (context) {
+                        if (context.tick.value == 0) {
+                            return '#6e6b6b';
+                        } {
+                            return '#bfbfbf';
+                        }
+                    }
+                }
+            },
+            y: {
+                min: -80,
+                max: 80,
+                title: {
+                    display: true,
+                    text: 'dn'
+                },
+                grid: {
+                    display: true,
+                    drawTicks: true,
+                    drawBorder: true,
+                    lineWidth: function (context) {
+                        if (context.tick.value == 0) {
+                            return 2;
+                        } {
+                            return 0.5;
+                        }
+                    },
+                    color: function (context) {
+                        if (context.tick.value == 0) {
+                            return '#6e6b6b';
+                        } {
+                            return '#bfbfbf';
+                        }
+                    }
+                }
+            }
+        }
     },
 });
 
@@ -153,9 +189,9 @@ let showData = async (data) => {
 
         chart.data = {
             datasets: [{
-                // label: 'Scatter Dataset',
-                data: arr,
-                backgroundColor: 'rgb(255, 99, 132)'
+                label: 'de',
+                backgroundColor: 'rgb(255, 99, 132)',
+                data: arr
             }],
         };
         chart.update();
