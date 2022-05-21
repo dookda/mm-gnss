@@ -290,6 +290,7 @@ let showData = async (data) => {
         let ts = [];
 
         dat.map(i => {
+            console.log(i);
             arr.push({ x: i.de, y: i.dn })
             h.push(i.dh)
             e.push(i.de)
@@ -359,8 +360,8 @@ const getData = () => {
     let stat_code = $("#stat_code").val();
     let start_date = $("#start_date").val();
     let end_date = $("#end_date").val();
+    $("#tab").dataTable().fnDestroy();
     showData({ stat_code, start_date, end_date })
-
 }
 
 let closeModal = () => {
