@@ -186,6 +186,7 @@ const chartE = new Chart(cte, {
                     mode: 'x',
                 },
             },
+
         },
         scales: {
             y: {
@@ -254,7 +255,6 @@ const resetZoomN = () => {
     chartN.resetZoom();
 }
 
-
 let showData = async (data) => {
     let table = $('#tab').DataTable({
         ajax: {
@@ -290,7 +290,7 @@ let showData = async (data) => {
         let ts = [];
 
         dat.map(i => {
-            console.log(i);
+            // console.log(i);
             arr.push({ x: i.de, y: i.dn })
             h.push(i.dh)
             e.push(i.de)
@@ -302,7 +302,7 @@ let showData = async (data) => {
             datasets: [{
                 label: 'station ' + data.stat_code,
                 backgroundColor: 'rgb(255, 99, 132)',
-                data: arr
+                data: arr,
             }],
         };
         chart.update();
@@ -313,8 +313,16 @@ let showData = async (data) => {
                 label: 'station ' + data.stat_code,
                 backgroundColor: 'rgb(255, 99, 132)',
                 data: h,
-                showLine: false
-            }]
+                showLine: false,
+                trendlineLinear: {
+                    style: "green",
+                    lineStyle: "dotted",
+                    width: 2,
+                    projection: true
+                }
+            }],
+
+
         };
         chartH.update();
 
@@ -324,7 +332,13 @@ let showData = async (data) => {
                 label: 'station ' + data.stat_code,
                 backgroundColor: 'rgb(255, 99, 132)',
                 data: e,
-                showLine: false
+                showLine: false,
+                trendlineLinear: {
+                    style: "green",
+                    lineStyle: "dotted",
+                    width: 2,
+                    projection: true
+                }
             }]
         };
         chartE.update();
@@ -335,7 +349,13 @@ let showData = async (data) => {
                 label: 'station ' + data.stat_code,
                 backgroundColor: 'rgb(255, 99, 132)',
                 data: n,
-                showLine: false
+                showLine: false,
+                trendlineLinear: {
+                    style: "green",
+                    lineStyle: "dotted",
+                    width: 2,
+                    projection: true
+                }
             }]
         };
         chartN.update();
