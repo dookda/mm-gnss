@@ -283,47 +283,25 @@ let showData = async (data) => {
 
     table.on('search.dt', async () => {
         let dat = table.rows({ search: 'applied' }).data();
-        let arr1 = [];
-        let h1 = [];
-        let e1 = [];
-        let n1 = [];
+        let arr = [];
+        let h = [];
+        let e = [];
+        let n = [];
+        let ts = [];
 
-        let arr2 = [];
-        let h2 = [];
-        let e2 = [];
-        let n2 = [];
-
-        let ts1 = [];
-        let ts2 = [];
-        let ts;
-        await dat.map(i => {
-            // console.log(i, data);
-            if (i.stat_code === data.stat_code1) {
-                // console.log(i);
-                arr1.push({ x: i.de, y: i.dn })
-                h1.push(i.dh)
-                e1.push(i.de)
-                n1.push(i.dn)
-                ts1.push(i.ts7t)
-            } else {
-                arr2.push({ x: i.de, y: i.dn })
-                h2.push(i.dh)
-                e2.push(i.de)
-                n2.push(i.dn)
-                ts2.push(i.ts7t)
-            }
-            ts = ts1.length == 0 ? ts2 : ts1;
+        dat.map(i => {
+            arr.push({ x: i.de, y: i.dn })
+            h.push(i.dh)
+            e.push(i.de)
+            n.push(i.dn)
+            ts.push(i.ts7t)
         })
 
         chart.data = {
             datasets: [{
-                label: 'station ' + data.stat_code1,
+                label: 'station ' + data.stat_code,
                 backgroundColor: 'rgb(255, 99, 132)',
-                data: arr1
-            }, {
-                label: 'station ' + data.stat_code2,
-                backgroundColor: '#32a852',
-                data: arr2
+                data: arr
             }],
         };
         chart.update();
@@ -331,14 +309,9 @@ let showData = async (data) => {
         chartH.data = {
             labels: ts,
             datasets: [{
-                label: 'station ' + data.stat_code1,
+                label: 'station ' + data.stat_code,
                 backgroundColor: 'rgb(255, 99, 132)',
-                data: h1,
-                showLine: false
-            }, {
-                label: 'station ' + data.stat_code2,
-                backgroundColor: '#32a852',
-                data: h2,
+                data: h,
                 showLine: false
             }]
         };
@@ -347,14 +320,9 @@ let showData = async (data) => {
         chartE.data = {
             labels: ts,
             datasets: [{
-                label: 'station ' + data.stat_code1,
+                label: 'station ' + data.stat_code,
                 backgroundColor: 'rgb(255, 99, 132)',
-                data: e1,
-                showLine: false
-            }, {
-                label: 'station ' + data.stat_code2,
-                backgroundColor: '#32a852',
-                data: e2,
+                data: e,
                 showLine: false
             }]
         };
@@ -363,14 +331,9 @@ let showData = async (data) => {
         chartN.data = {
             labels: ts,
             datasets: [{
-                label: 'station ' + data.stat_code1,
+                label: 'station ' + data.stat_code,
                 backgroundColor: 'rgb(255, 99, 132)',
-                data: n1,
-                showLine: false
-            }, {
-                label: 'station ' + data.stat_code2,
-                backgroundColor: '#32a852',
-                data: n2,
+                data: n,
                 showLine: false
             }]
         };
@@ -386,27 +349,18 @@ let showData = async (data) => {
 
 const today = moment().format('YYYY-MM-DD')
 const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
-const stat_code1 = '10';
-const stat_code2 = '07';
+const stat_code = '10';
 $("#start_date").val(yesterday);
 $("#end_date").val(today);
-$("#stat_code1").val('10');
-$("#stat_code2").val('07');
-showData({ stat_code1: stat_code1, stat_code2: stat_code2, start_date: yesterday, end_date: today })
+$("#stat_code").val('10');
+showData({ stat_code: stat_code, start_date: yesterday, end_date: today })
 
 const getData = () => {
-    let stat_code1 = $("#stat_code1").val();
-    let stat_code2 = $("#stat_code2").val();
+    let stat_code = $("#stat_code").val();
     let start_date = $("#start_date").val();
     let end_date = $("#end_date").val();
+    showData({ stat_code, start_date, end_date })
 
-    if (stat_code1 === stat_code2) {
-        $("#checkModal").modal("show")
-    } else {
-        // console.log(stat_code, start_date, end_date);
-        $("#tab").dataTable().fnDestroy();
-        showData({ stat_code1, stat_code2, start_date, end_date })
-    }
 }
 
 let closeModal = () => {
