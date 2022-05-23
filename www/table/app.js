@@ -314,15 +314,13 @@ let showData = async (data) => {
                 backgroundColor: 'rgb(255, 99, 132)',
                 data: h,
                 showLine: false,
-                trendlineLinear: {
-                    style: "green",
-                    lineStyle: "dotted",
-                    width: 2,
-                    projection: true
-                }
+                // trendlineLinear: {
+                //     style: "green",
+                //     lineStyle: "dotted",
+                //     width: 2,
+                //     projection: true
+                // }
             }],
-
-
         };
         chartH.update();
 
@@ -333,12 +331,12 @@ let showData = async (data) => {
                 backgroundColor: 'rgb(255, 99, 132)',
                 data: e,
                 showLine: false,
-                trendlineLinear: {
-                    style: "green",
-                    lineStyle: "dotted",
-                    width: 2,
-                    projection: true
-                }
+                // trendlineLinear: {
+                //     style: "green",
+                //     lineStyle: "dotted",
+                //     width: 2,
+                //     projection: true
+                // }
             }]
         };
         chartE.update();
@@ -350,12 +348,12 @@ let showData = async (data) => {
                 backgroundColor: 'rgb(255, 99, 132)',
                 data: n,
                 showLine: false,
-                trendlineLinear: {
-                    style: "green",
-                    lineStyle: "dotted",
-                    width: 2,
-                    projection: true
-                }
+                // trendlineLinear: {
+                //     style: "green",
+                //     lineStyle: "dotted",
+                //     width: 2,
+                //     projection: true
+                // }
             }]
         };
         chartN.update();
