@@ -65,8 +65,8 @@ const chart = new Chart(ctx, {
                 }
             },
             y: {
-                min: -80,
-                max: 80,
+                min: -380,
+                max: 380,
                 title: {
                     display: true,
                     text: 'dn'
