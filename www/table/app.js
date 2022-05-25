@@ -42,7 +42,7 @@ const chart = new Chart(ctx, {
                 max: 80,
                 title: {
                     display: true,
-                    text: 'de'
+                    text: 'de (cm)'
                 },
                 grid: {
                     display: true,
@@ -69,7 +69,7 @@ const chart = new Chart(ctx, {
                 max: 380,
                 title: {
                     display: true,
-                    text: 'dn'
+                    text: 'dn (cm)'
                 },
                 grid: {
                     display: true,
@@ -139,7 +139,7 @@ const chartH = new Chart(cth, {
             y: {
                 title: {
                     display: true,
-                    text: 'dh'
+                    text: 'dh (cm)'
                 }
             },
         }
@@ -192,7 +192,7 @@ const chartE = new Chart(cte, {
             y: {
                 title: {
                     display: true,
-                    text: 'de'
+                    text: 'de (cm)'
                 }
             },
         }
@@ -244,7 +244,7 @@ const chartN = new Chart(ctn, {
             y: {
                 title: {
                     display: true,
-                    text: 'dn'
+                    text: 'dn (cm)'
                 }
             },
         }
