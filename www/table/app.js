@@ -65,8 +65,8 @@ const chart = new Chart(ctx, {
                 }
             },
             y: {
-                min: -380,
-                max: 380,
+                min: -6000,
+                max: 6000,
                 title: {
                     display: true,
                     text: 'dn (cm)'
@@ -100,51 +100,71 @@ const resetZoom = () => {
 }
 // chart h
 const cth = document.getElementById('h').getContext('2d');
-var timeFormat = 'YYYY/MM/DD HH:mm:ss';
-const chartH = new Chart(cth, {
+// var timeFormat = 'YYYY/MM/DD HH:mm:ss';
+var chartH = new Chart(cth, {
     type: 'line',
     data: {},
     options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-                display: true
-            },
-            title: {
-                display: true,
-                text: 'ค่า H Difference (dh)'
-            },
-            tooltip: true,
-            zoom: {
-                pan: {
-                    enabled: true,
-                    mode: 'x',
-                },
-                zoom: {
-                    wheel: {
-                        enabled: true,
-                    },
-                    pinch: {
-                        enabled: true
-                    },
-                    drag: {
-                        enabled: false
-                    },
-                    mode: 'x',
-                },
-            },
-        },
-        scales: {
-            y: {
-                title: {
-                    display: true,
-                    text: 'dh (cm)'
-                }
-            },
-        }
-    },
+        // scales: {
+        //     x: {
+        //         type: 'time',
+        //         time: {
+        //             unit: 'series'
+        //         }
+        //     },
+        //     y: {
+        //         title: {
+        //             display: true,
+        //             text: 'dh (cm)'
+        //         }
+        //     }
+        // }
+    }
 });
+// const chartH = new Chart(cth, {
+//     type: 'line',
+//     data: {},
+//     options: {
+//         responsive: true,
+//         plugins: {
+//             legend: {
+//                 position: 'top',
+//                 display: true
+//             },
+//             title: {
+//                 display: true,
+//                 text: 'ค่า H Difference (dh)'
+//             },
+//             tooltip: true,
+//             zoom: {
+//                 pan: {
+//                     enabled: true,
+//                     mode: 'x',
+//                 },
+//                 zoom: {
+//                     wheel: {
+//                         enabled: true,
+//                     },
+//                     pinch: {
+//                         enabled: true
+//                     },
+//                     drag: {
+//                         enabled: false
+//                     },
+//                     mode: 'x',
+//                 },
+//             },
+//         },
+//         scales: {
+//             y: {
+//                 title: {
+//                     display: true,
+//                     text: 'dh (cm)'
+//                 }
+//             }
+//         }
+//     },
+// });
 
 const resetZoomH = () => {
     chartH.resetZoom();
@@ -186,7 +206,6 @@ const chartE = new Chart(cte, {
                     mode: 'x',
                 },
             },
-
         },
         scales: {
             y: {
@@ -289,13 +308,18 @@ let showData = async (data) => {
         let n = [];
         let ts = [];
 
-        dat.map(i => {
+        dat.map(async (i) => {
             // console.log(i);
             arr.push({ x: i.de, y: i.dn })
-            h.push(i.dh)
+            // h.push(i.dh)
             e.push(i.de)
             n.push(i.dn)
             ts.push(i.ts7t)
+
+            var cc = await new Date(i.ts7);
+            console.log(cc);
+            h.push({ x: i.ts7, y: i.dh })
+            // console.log(h);
         })
 
         chart.data = {
@@ -307,22 +331,16 @@ let showData = async (data) => {
         };
         chart.update();
 
-        chartH.data = {
-            labels: ts,
-            datasets: [{
-                label: 'station ' + data.stat_code,
-                backgroundColor: 'rgb(255, 99, 132)',
-                data: h,
-                showLine: false,
-                // trendlineLinear: {
-                //     style: "green",
-                //     lineStyle: "dotted",
-                //     width: 2,
-                //     projection: true
-                // }
-            }],
-        };
-        chartH.update();
+        // chartH.data = {
+        //     // labels: ts,
+        //     datasets: [{
+        //         label: 'station ' + data.stat_code,
+        //         backgroundColor: 'rgb(255, 99, 132)',
+        //         data: h,
+        //         showLine: false,
+        //     }]
+        // };
+        // chartH.update();
 
         chartE.data = {
             labels: ts,
@@ -365,6 +383,12 @@ let showData = async (data) => {
     // }
     // document.getElementById("tam").addEventListener("change", findData);
 }
+
+// var aa = "2022-05-31T17:40:00.000Z"
+// var dd = moment(aa);
+// var cc = new Date(aa);
+// console.log(dd);
+// console.log(cc);
 
 const today = moment().format('YYYY-MM-DD')
 const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');

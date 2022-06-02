@@ -26,11 +26,17 @@ app.post("/api/lastposition", (req, res) => {
     });
 })
 
-app.get("/api/selectdata", (req, res) => {
-    // const { stat_code, } = req.body;
-    const sql = `SELECT stat_code, de, dn, dh, ts7, status FROM dataset 
-	WHERE stat_code='10' AND ts7 BETWEEN '2022-05-18' AND '2022-05-19 24:00:00'
-	ORDER BY ts7 desc`;
+app.post("/api/selectdata", (req, res) => {
+    const { stat_code, start_date, end_date } = req.body;
+    //const stat_code='10'
+    //const start_date='2022-05-18'
+    //const end_date='2022-05-19'
+    const sql = `SELECT stat_code, CONCAT('station',stat_code) as sta_code_t, de, dn, dh, ts7,TO_CHAR(ts7, 'DD-MM-YYYY HH24:MI') as ts7t, status FROM dataset 
+    WHERE (stat_code='${stat_code}' ) AND ts7 BETWEEN '${start_date}' AND '${end_date} 24:00:00'
+    ORDER BY ts7 `;
+
+
+    //console.log(sql);
     db.query(sql).then((r) => {
         res.status(200).json({
             data: r.rows
