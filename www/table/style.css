@@ -5,3 +5,11 @@ body {
 h {
     font-family: "Kanit", sans-serif;
 }
+
+canvas {
+    height: 380px;
+}
+
+.div-head {
+    justify-content: space-between;
+}

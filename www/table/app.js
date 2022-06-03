@@ -13,10 +13,10 @@ const chart = new Chart(ctx, {
                 position: 'top',
                 display: true
             },
-            title: {
-                display: true,
-                text: 'ค่าการเคลื่อนตัว (de และ dn) '
-            },
+            // title: {
+            //     display: true,
+            //     text: 'ค่าการเคลื่อนตัว (de และ dn) '
+            // },
             zoom: {
                 pan: {
                     enabled: true,
@@ -134,6 +134,10 @@ const zoom = {
     },
 }
 
+
+let legend = {
+    display: true,
+}
 // chart h
 const cth = document.getElementById('h').getContext('2d');
 // var timeFormat = 'YYYY/MM/DD HH:mm:ss';
@@ -141,16 +145,15 @@ const chartH = new Chart(cth, {
     type: 'line',
     data: {},
     options: {
+        animation: false,
+        spanGaps: true,
         responsive: true,
         plugins: {
-            legend: {
-                position: 'top',
-                display: true
-            },
-            title: {
-                display: true,
-                text: 'ค่า H Difference (dh)'
-            },
+            legend: legend,
+            // title: {
+            //     display: true,
+            //     text: 'ค่า H Difference (dh)'
+            // },
             tooltip: true,
             zoom: zoom
         },
@@ -162,8 +165,8 @@ const chartH = new Chart(cth, {
                     text: 'dh (cm)'
                 }
             }
-        }
-    }
+        },
+    },
 });
 const resetZoomH = () => {
     chartH.resetZoom();
@@ -176,16 +179,18 @@ const chartE = new Chart(cte, {
     type: 'line',
     data: {},
     options: {
+        animation: false,
+        spanGaps: true,
         responsive: true,
         plugins: {
             legend: {
                 position: 'top',
                 display: true
             },
-            title: {
-                display: true,
-                text: 'ค่า E Difference (de)'
-            },
+            // title: {
+            //     display: true,
+            //     text: 'ค่า E Difference (de)'
+            // },
             tooltip: true,
             zoom: zoom
         },
@@ -212,16 +217,18 @@ const chartN = new Chart(ctn, {
     type: 'line',
     data: {},
     options: {
+        animation: false,
+        spanGaps: true,
         responsive: true,
         plugins: {
             legend: {
                 position: 'top',
                 display: true
             },
-            title: {
-                display: true,
-                text: 'ค่า N Difference (dn)'
-            },
+            // title: {
+            //     display: true,
+            //     text: 'ค่า N Difference (dn)'
+            // },
             tooltip: true,
             zoom: zoom
         },
@@ -273,100 +280,156 @@ let showData = async (data) => {
 
     table.on('search.dt', async () => {
         let dat = table.rows({ search: 'applied' }).data();
-        let arr = [];
-        let h = [];
-        let e = [];
-        let n = [];
 
-        dat.map(async (i) => {
-            if (i.de != 0 && i.dn != 0 && i.dh != 0) {
-                arr.push({ x: i.de, y: i.dn })
-                e.push({ x: i.ts7, y: i.de, z: i.status })
-                n.push({ x: i.ts7, y: i.dn, z: i.status })
-                h.push({ x: i.ts7, y: i.dh, z: i.status })
-            }
-        })
+        let en0 = []
+        dat.filter(i => i.status == 0).map(i => en0.push({ x: i.de, y: i.dn, z: i.status }))
+        let en1 = []
+        dat.filter(i => i.status == 1).map(i => en1.push({ x: i.de, y: i.dn, z: i.status }))
+        let en2 = []
+        dat.filter(i => i.status == 2).map(i => en2.push({ x: i.de, y: i.dn, z: i.status }))
+        let en3 = []
+        dat.filter(i => i.status == 3).map(i => en3.push({ x: i.de, y: i.dn, z: i.status }))
+
+        let h0 = []
+        dat.filter(i => i.status == 0).map(i => h0.push({ x: i.ts7, y: i.dh, z: i.status }))
+        let h1 = []
+        dat.filter(i => i.status == 1).map(i => h1.push({ x: i.ts7, y: i.dh, z: i.status }))
+        let h2 = []
+        dat.filter(i => i.status == 2).map(i => h2.push({ x: i.ts7, y: i.dh, z: i.status }))
+        let h3 = []
+        dat.filter(i => i.status == 3).map(i => h3.push({ x: i.ts7, y: i.dh, z: i.status }))
+
+        let e0 = []
+        dat.filter(i => i.status == 0).map(i => e0.push({ x: i.ts7, y: i.de, z: i.status }))
+        let e1 = []
+        dat.filter(i => i.status == 1).map(i => e1.push({ x: i.ts7, y: i.de, z: i.status }))
+        let e2 = []
+        dat.filter(i => i.status == 2).map(i => e2.push({ x: i.ts7, y: i.de, z: i.status }))
+        let e3 = []
+        dat.filter(i => i.status == 3).map(i => e3.push({ x: i.ts7, y: i.de, z: i.status }))
+
+        let n0 = []
+        dat.filter(i => i.status == 0).map(i => n0.push({ x: i.ts7, y: i.dn, z: i.status }))
+        let n1 = []
+        dat.filter(i => i.status == 1).map(i => n1.push({ x: i.ts7, y: i.dn, z: i.status }))
+        let n2 = []
+        dat.filter(i => i.status == 2).map(i => n2.push({ x: i.ts7, y: i.dn, z: i.status }))
+        let n3 = []
+        dat.filter(i => i.status == 3).map(i => n3.push({ x: i.ts7, y: i.dn, z: i.status }))
+
 
         chart.data = {
             datasets: [{
-                label: 'station ' + data.stat_code,
-                backgroundColor: 'rgb(255, 99, 132)',
-                data: arr,
-            }],
+                spanGaps: true,
+                backgroundColor: 'gray',
+                label: 'สถานะ 0',
+                data: en0,
+                showLine: false,
+            }, {
+                backgroundColor: 'green',
+                label: "สถานะ 1",
+                data: en1,
+                showLine: false,
+            }, {
+                backgroundColor: 'yellow',
+                label: "สถานะ 2",
+                data: en2,
+                showLine: false,
+            }, {
+                backgroundColor: 'red',
+                label: "สถานะ 3",
+                data: en3,
+                showLine: false,
+            }]
         };
         chart.update();
 
         chartH.data = {
             datasets: [{
-                label: 'station ' + data.stat_code,
-                // backgroundColor: 'rgb(255, 99, 132)',
-                data: h,
+                spanGaps: true,
+                backgroundColor: 'gray',
+                label: 'สถานะ 0',
+                data: h0,
+                showLine: false,
+            }, {
+                backgroundColor: 'green',
+                label: "สถานะ 1",
+                data: h1,
+                showLine: false,
+            }, {
+                backgroundColor: 'yellow',
+                label: "สถานะ 2",
+                data: h2,
+                showLine: false,
+            }, {
+                backgroundColor: 'red',
+                label: "สถานะ 3",
+                data: h3,
                 showLine: false,
             }]
         };
-        chartH.data.datasets[0].backgroundColor = [];
-        for (i in chartH.data.datasets[0].data) {
-            if (chartH.data.datasets[0].data[i].z == 1) {
-                chartH.data.datasets[0].backgroundColor[i] = 'green';
-            } else if (chartH.data.datasets[0].data[i].z == 2) {
-                chartH.data.datasets[0].backgroundColor[i] = 'yellow';
-            } else if (chartH.data.datasets[0].data[i].z == 3) {
-                chartH.data.datasets[0].backgroundColor[i] = 'red';
-            } else {
-                chartH.data.datasets[0].backgroundColor[i] = 'gray';
-            }
-        }
         chartH.scales.x.min = new Date(data.start_date).valueOf();
         chartH.scales.x.max = new Date(data.end_date).valueOf();
         chartH.update();
+        chartH.resetZoom();
 
         chartE.data = {
             datasets: [{
-                label: 'station ' + data.stat_code,
-                backgroundColor: 'rgb(255, 99, 132)',
-                data: e,
-                showLine: false
+                spanGaps: true,
+                backgroundColor: 'gray',
+                label: 'สถานะ 0',
+                data: e0,
+                showLine: false,
+            }, {
+                backgroundColor: 'green',
+                label: "สถานะ 1",
+                data: e1,
+                showLine: false,
+            }, {
+                backgroundColor: 'yellow',
+                label: "สถานะ 2",
+                data: e2,
+                showLine: false,
+            }, {
+                backgroundColor: 'red',
+                label: "สถานะ 3",
+                data: e3,
+                showLine: false,
             }]
         };
-        chartE.data.datasets[0].backgroundColor = [];
-        for (i in chartE.data.datasets[0].data) {
-            if (chartE.data.datasets[0].data[i].z == 1) {
-                chartE.data.datasets[0].backgroundColor[i] = 'green';
-            } else if (chartE.data.datasets[0].data[i].z == 2) {
-                chartE.data.datasets[0].backgroundColor[i] = 'yellow';
-            } else if (chartE.data.datasets[0].data[i].z == 3) {
-                chartE.data.datasets[0].backgroundColor[i] = 'red';
-            } else {
-                chartE.data.datasets[0].backgroundColor[i] = 'gray';
-            }
-        }
         chartE.scales.x.min = new Date(data.start_date).valueOf();
         chartE.scales.x.max = new Date(data.end_date).valueOf();
         chartE.update();
+        chartE.resetZoom();
 
         chartN.data = {
             datasets: [{
-                label: 'station ' + data.stat_code,
-                backgroundColor: 'rgb(255, 99, 132)',
-                data: n,
-                showLine: false
+                spanGaps: true,
+                backgroundColor: 'gray',
+                label: 'สถานะ 0',
+                data: n0,
+                showLine: false,
+            }, {
+                backgroundColor: 'green',
+                label: "สถานะ 1",
+                data: n1,
+                showLine: false,
+            }, {
+                backgroundColor: 'yellow',
+                label: "สถานะ 2",
+                data: n2,
+                showLine: false,
+            }, {
+                backgroundColor: 'red',
+                label: "สถานะ 3",
+                data: n3,
+                showLine: false,
             }]
         };
-        chartN.data.datasets[0].backgroundColor = [];
-        for (i in chartN.data.datasets[0].data) {
-            if (chartN.data.datasets[0].data[i].z == 1) {
-                chartN.data.datasets[0].backgroundColor[i] = 'green';
-            } else if (chartN.data.datasets[0].data[i].z == 2) {
-                chartN.data.datasets[0].backgroundColor[i] = 'yellow';
-            } else if (chartN.data.datasets[0].data[i].z == 3) {
-                chartN.data.datasets[0].backgroundColor[i] = 'red';
-            } else {
-                chartN.data.datasets[0].backgroundColor[i] = 'gray';
-            }
-        }
         chartN.scales.x.min = new Date(data.start_date).valueOf();
         chartN.scales.x.max = new Date(data.end_date).valueOf();
         chartN.update();
+        chartN.resetZoom();
     });
 
     // let findData = function () {

@@ -55,15 +55,21 @@
         <div class="row  ">
             <div class="col-md-6 mt-1">
                 <div class=" shadow p-3 bg-body rounded mt-3">
-                    <canvas id="en" height="250"></canvas>
-                    <button class="btn btn-light" onclick="resetZoom()">reset zoom</button>
+                    <div class="d-flex justify-content-between align-items-center">
+                        ค่าการเคลื่อนตัว (de และ dn)
+                        <button class="btn btn-light" onclick="resetZoom()">reset zoom</button>
+                    </div>
+                    <canvas id="en" height="300px"></canvas>
 
                 </div>
             </div>
             <div class="col-md-6 mt-1">
-                <div class=" shadow p-3 bg-body rounded mt-3">
-                    <canvas id="h" height="250"></canvas>
-                    <button class="btn btn-light" onclick="resetZoomH()">reset zoom</button>
+                <div class="shadow p-3 bg-body rounded mt-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        ค่า H Difference (dh)
+                        <button class="btn btn-light" onclick="resetZoomH()">reset zoom</button>
+                    </div>
+                    <canvas id="h" height="300px"></canvas>
                 </div>
             </div>
         </div>
@@ -72,14 +78,20 @@
         <div class="row  ">
             <div class="col-md-6 mt-1">
                 <div class=" shadow p-3 bg-body rounded mt-3">
-                    <canvas id="e" height="250"></canvas>
-                    <button class="btn btn-light" onclick="resetZoomE()">reset zoom</button>
+                    <div class="d-flex justify-content-between align-items-center">
+                        ค่า E Difference (de)
+                        <button class="btn btn-light" onclick="resetZoomE()">reset zoom</button>
+                    </div>
+                    <canvas id="e" height="300px"></canvas>
                 </div>
             </div>
             <div class="col-md-6 mt-1">
                 <div class=" shadow p-3 bg-body rounded mt-3">
-                    <canvas id="n" height="250"></canvas>
-                    <button class="btn btn-light" onclick="resetZoomN()">reset zoom</button>
+                    <div class="d-flex justify-content-between align-items-center">
+                        ค่า N Difference (dn)
+                        <button class="btn btn-light" onclick="resetZoomN()">reset zoom</button>
+                    </div>
+                    <canvas id="n" height="300px"></canvas>
                 </div>
             </div>
         </div>
