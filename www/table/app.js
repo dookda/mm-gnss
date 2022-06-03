@@ -113,7 +113,7 @@ const x = {
             'quarter': 'DD MMM YYYY h:mm a',
             'year': 'DD MMM YYYY',
         }
-    }
+    },
 }
 const zoom = {
     pan: {
@@ -137,7 +137,7 @@ const zoom = {
 // chart h
 const cth = document.getElementById('h').getContext('2d');
 // var timeFormat = 'YYYY/MM/DD HH:mm:ss';
-var chartH = new Chart(cth, {
+const chartH = new Chart(cth, {
     type: 'line',
     data: {},
     options: {
@@ -241,6 +241,10 @@ const resetZoomN = () => {
     chartN.resetZoom();
 }
 
+const checkPoints = function (remove) {
+
+}
+
 let showData = async (data) => {
     let table = $('#tab').DataTable({
         ajax: {
@@ -277,9 +281,9 @@ let showData = async (data) => {
         dat.map(async (i) => {
             if (i.de != 0 && i.dn != 0 && i.dh != 0) {
                 arr.push({ x: i.de, y: i.dn })
-                e.push({ x: i.ts7, y: i.de })
-                n.push({ x: i.ts7, y: i.dn })
-                h.push({ x: i.ts7, y: i.dh })
+                e.push({ x: i.ts7, y: i.de, z: i.status })
+                n.push({ x: i.ts7, y: i.dn, z: i.status })
+                h.push({ x: i.ts7, y: i.dh, z: i.status })
             }
         })
 
@@ -295,13 +299,26 @@ let showData = async (data) => {
         chartH.data = {
             datasets: [{
                 label: 'station ' + data.stat_code,
-                backgroundColor: 'rgb(255, 99, 132)',
+                // backgroundColor: 'rgb(255, 99, 132)',
                 data: h,
                 showLine: false,
             }]
         };
+        chartH.data.datasets[0].backgroundColor = [];
+        for (i in chartH.data.datasets[0].data) {
+            if (chartH.data.datasets[0].data[i].z == 1) {
+                chartH.data.datasets[0].backgroundColor[i] = 'green';
+            } else if (chartH.data.datasets[0].data[i].z == 2) {
+                chartH.data.datasets[0].backgroundColor[i] = 'yellow';
+            } else if (chartH.data.datasets[0].data[i].z == 3) {
+                chartH.data.datasets[0].backgroundColor[i] = 'red';
+            } else {
+                chartH.data.datasets[0].backgroundColor[i] = 'gray';
+            }
+        }
+        chartH.scales.x.min = new Date(data.start_date).valueOf();
+        chartH.scales.x.max = new Date(data.end_date).valueOf();
         chartH.update();
-        setTimeout(() => chartH.resetZoom(), 1000)
 
         chartE.data = {
             datasets: [{
@@ -311,8 +328,21 @@ let showData = async (data) => {
                 showLine: false
             }]
         };
+        chartE.data.datasets[0].backgroundColor = [];
+        for (i in chartE.data.datasets[0].data) {
+            if (chartE.data.datasets[0].data[i].z == 1) {
+                chartE.data.datasets[0].backgroundColor[i] = 'green';
+            } else if (chartE.data.datasets[0].data[i].z == 2) {
+                chartE.data.datasets[0].backgroundColor[i] = 'yellow';
+            } else if (chartE.data.datasets[0].data[i].z == 3) {
+                chartE.data.datasets[0].backgroundColor[i] = 'red';
+            } else {
+                chartE.data.datasets[0].backgroundColor[i] = 'gray';
+            }
+        }
+        chartE.scales.x.min = new Date(data.start_date).valueOf();
+        chartE.scales.x.max = new Date(data.end_date).valueOf();
         chartE.update();
-        setTimeout(() => chartE.resetZoom(), 1000)
 
         chartN.data = {
             datasets: [{
@@ -322,8 +352,21 @@ let showData = async (data) => {
                 showLine: false
             }]
         };
+        chartN.data.datasets[0].backgroundColor = [];
+        for (i in chartN.data.datasets[0].data) {
+            if (chartN.data.datasets[0].data[i].z == 1) {
+                chartN.data.datasets[0].backgroundColor[i] = 'green';
+            } else if (chartN.data.datasets[0].data[i].z == 2) {
+                chartN.data.datasets[0].backgroundColor[i] = 'yellow';
+            } else if (chartN.data.datasets[0].data[i].z == 3) {
+                chartN.data.datasets[0].backgroundColor[i] = 'red';
+            } else {
+                chartN.data.datasets[0].backgroundColor[i] = 'gray';
+            }
+        }
+        chartN.scales.x.min = new Date(data.start_date).valueOf();
+        chartN.scales.x.max = new Date(data.end_date).valueOf();
         chartN.update();
-        setTimeout(() => chartN.resetZoom(), 1000)
     });
 
     // let findData = function () {
