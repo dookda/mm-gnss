@@ -3,7 +3,7 @@ const legend = {
     position: 'top',
     display: true,
     labels: {
-        boxWidth: 20
+        boxWidth: 15
     }
 }
 const x = {
