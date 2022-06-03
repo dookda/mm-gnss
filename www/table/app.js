@@ -1,18 +1,54 @@
 
-
+const legend = {
+    position: 'top',
+    display: true,
+    labels: {
+        boxWidth: 20
+    }
+}
+const x = {
+    type: 'time',
+    time: {
+        displayFormats: {
+            'millisecond': 'h:mm a',
+            'second': 'DD MMM h:mm a',
+            'minute': 'DD MMM h:mm a',
+            'hour': 'DD MMM h:mm a',
+            'day': 'DD MMM YYYY',
+            'week': 'DD MMM YYYY',
+            'month': 'DD MMM YYYY',
+            'quarter': 'DD MMM YYYY',
+            'year': 'DD MMM YYYY',
+        }
+    },
+}
+const zoom = {
+    pan: {
+        enabled: true,
+        mode: 'x',
+    },
+    zoom: {
+        wheel: {
+            enabled: true,
+        },
+        pinch: {
+            enabled: true
+        },
+        drag: {
+            enabled: false
+        },
+        mode: 'x',
+    },
+}
 
 const ctx = document.getElementById('en').getContext('2d');
-
 const chart = new Chart(ctx, {
     type: 'scatter',
     data: {},
     options: {
         responsive: true,
         plugins: {
-            legend: {
-                position: 'top',
-                display: true
-            },
+            legend: legend,
             // title: {
             //     display: true,
             //     text: 'ค่าการเคลื่อนตัว (de และ dn) '
@@ -99,48 +135,8 @@ const resetZoom = () => {
     chart.resetZoom();
 }
 
-const x = {
-    type: 'time',
-    time: {
-        displayFormats: {
-            'millisecond': 'h:mm a',
-            'second': 'DD MMM h:mm a',
-            'minute': 'DD MMM h:mm a',
-            'hour': 'DD MMM h:mm a',
-            'day': 'DD MMM YYYY',
-            'week': 'DD MMM YYYY',
-            'month': 'DD MMM YYYY',
-            'quarter': 'DD MMM YYYY',
-            'year': 'DD MMM YYYY',
-        }
-    },
-}
-const zoom = {
-    pan: {
-        enabled: true,
-        mode: 'x',
-    },
-    zoom: {
-        wheel: {
-            enabled: true,
-        },
-        pinch: {
-            enabled: true
-        },
-        drag: {
-            enabled: false
-        },
-        mode: 'x',
-    },
-}
-
-
-let legend = {
-    display: true,
-}
 // chart h
 const cth = document.getElementById('h').getContext('2d');
-// var timeFormat = 'YYYY/MM/DD HH:mm:ss';
 const chartH = new Chart(cth, {
     type: 'line',
     data: {},
@@ -183,10 +179,7 @@ const chartE = new Chart(cte, {
         spanGaps: true,
         responsive: true,
         plugins: {
-            legend: {
-                position: 'top',
-                display: true
-            },
+            legend: legend,
             // title: {
             //     display: true,
             //     text: 'ค่า E Difference (de)'
@@ -221,10 +214,7 @@ const chartN = new Chart(ctn, {
         spanGaps: true,
         responsive: true,
         plugins: {
-            legend: {
-                position: 'top',
-                display: true
-            },
+            legend: legend,
             // title: {
             //     display: true,
             //     text: 'ค่า N Difference (dn)'
