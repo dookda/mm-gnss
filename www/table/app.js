@@ -3,7 +3,9 @@ const legend = {
     position: 'top',
     display: true,
     labels: {
-        boxWidth: 15
+        usePointStyle: true,
+        boxWidth: 10,
+        fontSize: 8
     }
 }
 const x = {
@@ -279,6 +281,8 @@ let showData = async (data) => {
         dat.filter(i => i.status == 2).map(i => en2.push({ x: i.de, y: i.dn, z: i.status }))
         let en3 = []
         dat.filter(i => i.status == 3).map(i => en3.push({ x: i.de, y: i.dn, z: i.status }))
+        let en4 = []
+        dat.filter(i => i.status == 3).map(i => en4.push({ x: i.de, y: i.dn, z: i.status }))
 
         let h0 = []
         dat.filter(i => i.status == 0).map(i => h0.push({ x: i.ts7, y: i.dh, z: i.status }))
@@ -288,6 +292,8 @@ let showData = async (data) => {
         dat.filter(i => i.status == 2).map(i => h2.push({ x: i.ts7, y: i.dh, z: i.status }))
         let h3 = []
         dat.filter(i => i.status == 3).map(i => h3.push({ x: i.ts7, y: i.dh, z: i.status }))
+        let h4 = []
+        dat.filter(i => i.status == 3).map(i => h4.push({ x: i.ts7, y: i.dh, z: i.status }))
 
         let e0 = []
         dat.filter(i => i.status == 0).map(i => e0.push({ x: i.ts7, y: i.de, z: i.status }))
@@ -297,6 +303,8 @@ let showData = async (data) => {
         dat.filter(i => i.status == 2).map(i => e2.push({ x: i.ts7, y: i.de, z: i.status }))
         let e3 = []
         dat.filter(i => i.status == 3).map(i => e3.push({ x: i.ts7, y: i.de, z: i.status }))
+        let e4 = []
+        dat.filter(i => i.status == 3).map(i => e4.push({ x: i.ts7, y: i.de, z: i.status }))
 
         let n0 = []
         dat.filter(i => i.status == 0).map(i => n0.push({ x: i.ts7, y: i.dn, z: i.status }))
@@ -306,22 +314,24 @@ let showData = async (data) => {
         dat.filter(i => i.status == 2).map(i => n2.push({ x: i.ts7, y: i.dn, z: i.status }))
         let n3 = []
         dat.filter(i => i.status == 3).map(i => n3.push({ x: i.ts7, y: i.dn, z: i.status }))
+        let n4 = []
+        dat.filter(i => i.status == 3).map(i => n4.push({ x: i.ts7, y: i.dn, z: i.status }))
 
 
         chart.data = {
             datasets: [{
                 spanGaps: true,
-                backgroundColor: 'gray',
+                backgroundColor: 'green',
                 label: 'สถานะ 0',
                 data: en0,
                 showLine: false,
             }, {
-                backgroundColor: 'green',
+                backgroundColor: 'yellow',
                 label: "สถานะ 1",
                 data: en1,
                 showLine: false,
             }, {
-                backgroundColor: 'yellow',
+                backgroundColor: 'orange',
                 label: "สถานะ 2",
                 data: en2,
                 showLine: false,
@@ -330,6 +340,11 @@ let showData = async (data) => {
                 label: "สถานะ 3",
                 data: en3,
                 showLine: false,
+            }, {
+                backgroundColor: 'gray',
+                label: "สถานะ 4",
+                data: en4,
+                showLine: false,
             }]
         };
         chart.update();
@@ -337,17 +352,17 @@ let showData = async (data) => {
         chartH.data = {
             datasets: [{
                 spanGaps: true,
-                backgroundColor: 'gray',
+                backgroundColor: 'green',
                 label: 'สถานะ 0',
                 data: h0,
                 showLine: false,
             }, {
-                backgroundColor: 'green',
+                backgroundColor: 'yellow',
                 label: "สถานะ 1",
                 data: h1,
                 showLine: false,
             }, {
-                backgroundColor: 'yellow',
+                backgroundColor: 'orange',
                 label: "สถานะ 2",
                 data: h2,
                 showLine: false,
@@ -355,6 +370,11 @@ let showData = async (data) => {
                 backgroundColor: 'red',
                 label: "สถานะ 3",
                 data: h3,
+                showLine: false,
+            }, {
+                backgroundColor: 'gray',
+                label: "สถานะ 4",
+                data: h4,
                 showLine: false,
             }]
         };
@@ -366,17 +386,17 @@ let showData = async (data) => {
         chartE.data = {
             datasets: [{
                 spanGaps: true,
-                backgroundColor: 'gray',
+                backgroundColor: 'green',
                 label: 'สถานะ 0',
                 data: e0,
                 showLine: false,
             }, {
-                backgroundColor: 'green',
+                backgroundColor: 'yellow',
                 label: "สถานะ 1",
                 data: e1,
                 showLine: false,
             }, {
-                backgroundColor: 'yellow',
+                backgroundColor: 'orange',
                 label: "สถานะ 2",
                 data: e2,
                 showLine: false,
@@ -384,6 +404,11 @@ let showData = async (data) => {
                 backgroundColor: 'red',
                 label: "สถานะ 3",
                 data: e3,
+                showLine: false,
+            }, {
+                backgroundColor: 'gray',
+                label: "สถานะ 4",
+                data: e4,
                 showLine: false,
             }]
         };
@@ -395,17 +420,17 @@ let showData = async (data) => {
         chartN.data = {
             datasets: [{
                 spanGaps: true,
-                backgroundColor: 'gray',
+                backgroundColor: 'green',
                 label: 'สถานะ 0',
                 data: n0,
                 showLine: false,
             }, {
-                backgroundColor: 'green',
+                backgroundColor: 'yellow',
                 label: "สถานะ 1",
                 data: n1,
                 showLine: false,
             }, {
-                backgroundColor: 'yellow',
+                backgroundColor: 'orange',
                 label: "สถานะ 2",
                 data: n2,
                 showLine: false,
@@ -413,6 +438,11 @@ let showData = async (data) => {
                 backgroundColor: 'red',
                 label: "สถานะ 3",
                 data: n3,
+                showLine: false,
+            }, {
+                backgroundColor: 'gray',
+                label: "สถานะ 4",
+                data: n4,
                 showLine: false,
             }]
         };
