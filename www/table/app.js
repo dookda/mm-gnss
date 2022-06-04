@@ -282,7 +282,7 @@ let showData = async (data) => {
         let en3 = []
         dat.filter(i => i.status == 3).map(i => en3.push({ x: i.de, y: i.dn, z: i.status }))
         let en4 = []
-        dat.filter(i => i.status == 3).map(i => en4.push({ x: i.de, y: i.dn, z: i.status }))
+        dat.filter(i => i.status == 4).map(i => en4.push({ x: i.de, y: i.dn, z: i.status }))
 
         let h0 = []
         dat.filter(i => i.status == 0).map(i => h0.push({ x: i.ts7, y: i.dh, z: i.status }))
@@ -293,7 +293,7 @@ let showData = async (data) => {
         let h3 = []
         dat.filter(i => i.status == 3).map(i => h3.push({ x: i.ts7, y: i.dh, z: i.status }))
         let h4 = []
-        dat.filter(i => i.status == 3).map(i => h4.push({ x: i.ts7, y: i.dh, z: i.status }))
+        dat.filter(i => i.status == 4).map(i => h4.push({ x: i.ts7, y: i.dh, z: i.status }))
 
         let e0 = []
         dat.filter(i => i.status == 0).map(i => e0.push({ x: i.ts7, y: i.de, z: i.status }))
@@ -304,7 +304,7 @@ let showData = async (data) => {
         let e3 = []
         dat.filter(i => i.status == 3).map(i => e3.push({ x: i.ts7, y: i.de, z: i.status }))
         let e4 = []
-        dat.filter(i => i.status == 3).map(i => e4.push({ x: i.ts7, y: i.de, z: i.status }))
+        dat.filter(i => i.status == 4).map(i => e4.push({ x: i.ts7, y: i.de, z: i.status }))
 
         let n0 = []
         dat.filter(i => i.status == 0).map(i => n0.push({ x: i.ts7, y: i.dn, z: i.status }))
@@ -315,7 +315,7 @@ let showData = async (data) => {
         let n3 = []
         dat.filter(i => i.status == 3).map(i => n3.push({ x: i.ts7, y: i.dn, z: i.status }))
         let n4 = []
-        dat.filter(i => i.status == 3).map(i => n4.push({ x: i.ts7, y: i.dn, z: i.status }))
+        dat.filter(i => i.status == 4).map(i => n4.push({ x: i.ts7, y: i.dn, z: i.status }))
 
 
         chart.data = {

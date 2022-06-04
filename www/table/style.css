@@ -1,13 +1,10 @@
 body {
     font-family: "Kanit", sans-serif;
+    box-sizing: content-box;
 }
 
 h {
     font-family: "Kanit", sans-serif;
-}
-
-canvas {
-    height: 380px;
 }
 
 .div-head {
