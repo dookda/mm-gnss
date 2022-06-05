@@ -51,10 +51,6 @@ const chart = new Chart(ctx, {
         responsive: true,
         plugins: {
             legend: legend,
-            // title: {
-            //     display: true,
-            //     text: 'ค่าการเคลื่อนตัว (de และ dn) '
-            // },
             zoom: {
                 pan: {
                     enabled: true,
@@ -148,10 +144,6 @@ const chartH = new Chart(cth, {
         responsive: true,
         plugins: {
             legend: legend,
-            // title: {
-            //     display: true,
-            //     text: 'ค่า H Difference (dh)'
-            // },
             tooltip: true,
             zoom: zoom
         },
@@ -182,10 +174,6 @@ const chartE = new Chart(cte, {
         responsive: true,
         plugins: {
             legend: legend,
-            // title: {
-            //     display: true,
-            //     text: 'ค่า E Difference (de)'
-            // },
             tooltip: true,
             zoom: zoom
         },
@@ -458,12 +446,6 @@ let showData = async (data) => {
     // }
     // document.getElementById("tam").addEventListener("change", findData);
 }
-
-// var aa = "2022-05-31T17:40:00.000Z"
-// var dd = moment(aa);
-// var cc = new Date(aa);
-// console.log(dd);
-// console.log(cc);
 
 const today = moment().format('YYYY-MM-DD')
 const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
