@@ -72,8 +72,8 @@ const chart = new Chart(ctx, {
         },
         scales: {
             x: {
-                // min: -6000,
-                // max: 6000,
+                min: -300,
+                max: 3000,
                 title: {
                     display: true,
                     text: 'de (cm)'
@@ -99,8 +99,8 @@ const chart = new Chart(ctx, {
                 }
             },
             y: {
-                // min: -6000,
-                // max: 6000,
+                min: -300,
+                max: 4500,
                 title: {
                     display: true,
                     text: 'dn (cm)'
