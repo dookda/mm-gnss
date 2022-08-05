@@ -27,7 +27,7 @@ const x = {
 const zoom = {
     pan: {
         enabled: true,
-        mode: 'x',
+        mode: 'xy',
     },
     zoom: {
         wheel: {
@@ -39,7 +39,7 @@ const zoom = {
         drag: {
             enabled: false
         },
-        mode: 'x',
+        mode: 'xy',
     },
 }
 
